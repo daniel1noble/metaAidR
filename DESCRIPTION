@@ -1,0 +1,15 @@
+Package: metaAid
+Title: Functions for aiding meta-analyses in ecology and evolution
+Version: 0.0.0.9000
+Authors@R: c(person(“Malgorzata”, “Lagisz”, email = “m.nakagawa-lagisz@unsw.edu.au”, role = c("aut", "cre”)),person(“Alistair”, “Senior”, email = “alistair.senior1985@gmail.com”, role = c("aut", "cre”)),person(“Shinichi”, “Nakagawa”, email = “s.nakagawa@unsw.edu.au”, role = c("aut", "cre”)),person(“Daniel”, “Noble”, email = “daniel.noble@unsw.edu.au”, role = c("aut", "cre”)))
+Description: Functions for aiding meta-analyses in ecology and evolution. Contains functions for converting descriptive data to relevant statistics for calculating effect size, deriving correlation and covariance matrices to control for non-independence etc. Example datasets are provided to guide authors in the implementation of various methods. 
+Depends: R (>= 3.2.3)
+License: OpenScience
+LazyData: true
+Imports: MCMCglmm,
+    metafor,
+    dplyr
+Suggests: knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr
