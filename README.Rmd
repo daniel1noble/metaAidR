@@ -1,1 +1,2 @@
-**metaAidR**: Helping you meta-analyze since 2016
+**metaAidR**
+Helping you meta-analyze since 2016
