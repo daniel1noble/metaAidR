@@ -65,7 +65,7 @@ NULL
 #' @description Data set investing the correlations between maternal size and offspring size (dataset 1 - M-O.size). Data was taken from Lim et al. (2014). 
 #' @format A raw csv file containing the following columns and descriptors
 #' @references Lim, J. N., Senior, A. M. & Nakagawa, S. (2014) Heterogeneity in individual quality and reproductive trade-offs within species. Evolution. 68: 2306–2318
-#' @name tradeoffs
+#' @name moSizetradeoff
 #' @docType data
 NULL
 
