@@ -4,11 +4,7 @@
 \name{tradeoffs}
 \alias{tradeoffs}
 \title{moSizetradeoff}
-\format{A raw csv file containing the following columns and descriptors
-\enumerate{
-\item 
-\item 
-}}
+\format{A raw csv file containing the following columns and descriptors}
 \description{
 Data set investing the correlations between maternal size and offspring size (dataset 1 - M-O.size). Data was taken from Lim et al. (2014).
 }

@@ -55,12 +55,6 @@ NULL
 #'
 #' @description Data set on how maternal diet impacts copying styles in rodents. Data was taken from Besson et al. (2016). 
 #' @format A raw csv file containing the following columns and descriptors
-#' \enumerate{
-#' \item 
-#' \item 
-#' \item 
-
-#'}	
 #' @references Besson, A. A., Lagisz, M., Senior, A.M., Hector, K.L. and Nakagawa, S. (2016). Effect of maternal diet on offspring coping styles in rodents: a systematic review and meta-analysis. Biological Reviews, 91:1065-1080
 #' @name matdiet
 #' @docType data
@@ -70,10 +64,6 @@ NULL
 #'
 #' @description Data set investing the correlations between maternal size and offspring size (dataset 1 - M-O.size). Data was taken from Lim et al. (2014). 
 #' @format A raw csv file containing the following columns and descriptors
-#' \enumerate{
-#' \item 
-#' \item 
-#'}	
 #' @references Lim, J. N., Senior, A. M. & Nakagawa, S. (2014) Heterogeneity in individual quality and reproductive trade-offs within species. Evolution. 68: 2306–2318
 #' @name tradeoffs
 #' @docType data
@@ -83,10 +73,6 @@ NULL
 #' @title moNumtradeoff
 #' @description Data set investing the correlations between maternal size and offspring number (dataset 2 - M-O.Number). Data was taken from Lim et al. (2014). 
 #' @format A raw csv file containing the following columns and descriptors
-#' \enumerate{
-#' \item 
-#' \item 
-#'}	
 #' @references Lim, J. N., Senior, A. M. & Nakagawa, S. (2014) Heterogeneity in individual quality and reproductive trade-offs within species. Evolution. 68: 2306–2318
 #' @name moNumtradeoff
 #' @docType data
@@ -95,11 +81,7 @@ NULL
 
 #' @title ooAdjtradeoff
 #' @description Data set investing the correlations between offspring size and offspring number after adjusting for maternal size(dataset 3 - O-O.Adjusted). Data was taken from Lim et al. (2014). 
-#' @format A raw csv file containing the following columns and descriptors
-#' \enumerate{
-#' \item 
-#' \item 
-#'}	
+#' @format A raw csv file containing the following columns and descriptors	
 #' @references Lim, J. N., Senior, A. M. & Nakagawa, S. (2014) Heterogeneity in individual quality and reproductive trade-offs within species. Evolution. 68: 2306–2318
 #' @name ooAdjtradeoff
 #' @docType data
@@ -108,11 +90,7 @@ NULL
 
 #' @title ooUnAdjtradeoff
 #' @description Data set investing the correlations between offspring size and offspring number not adjusting for maternal size (dataset 3 - O-O.Unadjusted). Data was taken from Lim et al. (2014). 
-#' @format A raw csv file containing the following columns and descriptors
-#' \enumerate{
-#' \item 
-#' \item 
-#'}	
+#' @format A raw csv file containing the following columns and descriptors	
 #' @references Lim, J. N., Senior, A. M. & Nakagawa, S. (2014) Heterogeneity in individual quality and reproductive trade-offs within species. Evolution. 68: 2306–2318
 #' @name ooUnAdjtradeoff
 #' @docType data

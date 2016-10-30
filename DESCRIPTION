@@ -9,7 +9,7 @@ Description: Functions for aiding meta-analyses in ecology and evolution.
     implementation of various methods.
 Depends:
     R (>= 3.2.3)
-License: OpenScience
+License: GPL-2
 LazyData: true
 Imports:
     MCMCglmm,

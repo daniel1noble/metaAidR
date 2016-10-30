@@ -4,11 +4,7 @@
 \name{ooAdjtradeoff}
 \alias{ooAdjtradeoff}
 \title{ooAdjtradeoff}
-\format{A raw csv file containing the following columns and descriptors
-\enumerate{
-\item 
-\item 
-}}
+\format{A raw csv file containing the following columns and descriptors}
 \description{
 Data set investing the correlations between offspring size and offspring number after adjusting for maternal size(dataset 3 - O-O.Adjusted). Data was taken from Lim et al. (2014).
 }

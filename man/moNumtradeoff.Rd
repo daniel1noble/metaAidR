@@ -4,11 +4,7 @@
 \name{moNumtradeoff}
 \alias{moNumtradeoff}
 \title{moNumtradeoff}
-\format{A raw csv file containing the following columns and descriptors
-\enumerate{
-\item 
-\item 
-}}
+\format{A raw csv file containing the following columns and descriptors}
 \description{
 Data set investing the correlations between maternal size and offspring number (dataset 2 - M-O.Number). Data was taken from Lim et al. (2014).
 }

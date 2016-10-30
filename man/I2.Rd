@@ -12,7 +12,7 @@ I2(model, v, re.list = list(phylo = "animal", spp = "species", stdy =
 
 \item{v}{The vector of sampling variance for each effect size.}
 
-\item{re.list}{A list of variance estimates one wishes to derive I^2 estimates for. These could include phylogenetic heritability (H^2), species ($I^{2}_{sp}$) and study ($I^{2}_{stdy}$) or often called ($\tau^{2}$). At the moment only three types are provided: phylogenetic (phylo), species (spp) and study (stdy). The names of your specific variance component do not matter, but these names should be specified in the re.list argument in the respective argument.}
+\item{re.list}{A list of variance estimates one wishes to derive I^2 estimates for. These could include phylogenetic heritability (H^2), species ($I^{2}_{sp}$) and study ($I^{2}_{stdy}$) or often called ($tau^{2}$). At the moment only three types are provided: phylogenetic (phylo), species (spp) and study (stdy). The names of your specific variance component do not matter, but these names should be specified in the re.list argument in the respective argument.}
 }
 \value{
 A data.frame containing the relevant I^2 measures along with the 95 percent credible intervals for each element listed in the re.list argument
