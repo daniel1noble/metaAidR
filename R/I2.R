@@ -34,7 +34,7 @@ I2 <- function(model, v, re.list = list(phylo = "animal", spp = "species", stdy 
 	   I2.spp <- (spp) / (phylo + spp + stdy + r + Vw)
 	        I2.t <- (phylo + spp + stdy + r) / (phylo + spp + stdy + r + Vw)
 
-	tmpMatrix <- cBind(I2.phylo, I2.stdy, I2.spp, I2.t)
+	tmpMatrix <- Matrix::cBind(I2.phylo, I2.stdy, I2.spp, I2.t)
 	        mode <- MCMCglmm::posterior.mode(coda::as.mcmc(tmpMatrix))
 	             CI <- coda::HPDinterval(coda::as.mcmc(tmpMatrix))
 

@@ -33,13 +33,13 @@ foldnorm <-  function(mu, sd, type = c("mean", "mode", "raw")){
 	if(type == "mean"){
 		mean <- mean(postfnorm)
 		    CI <- coda::HPDinterval(postfnorm)
-		    est <- cBind(mean = mean, CI)
+		    est <- Matrix::cBind(mean = mean, CI)
 	}
 
 	if(type == "mode"){
 		mode <- MCMCglmm::posterior.mode(postfnorm)
 		     CI <- coda::HPDinterval(postfnorm)
-		est <- cBind(mode = mode, CI)
+		est <- Matrix::cBind(mode = mode, CI)
 	}
      return(est)
 }

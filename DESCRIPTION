@@ -16,7 +16,8 @@ Imports:
     metafor,
     dplyr,
     coda,
-    stats
+    stats,
+    Matrix
 Suggests:
     knitr,
     rmarkdown,
