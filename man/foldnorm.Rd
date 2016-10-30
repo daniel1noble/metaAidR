@@ -2,8 +2,7 @@
 % Please edit documentation in R/foldnorm.R
 \name{foldnorm}
 \alias{foldnorm}
-\title{foldnorm
-Applying the folded normal distribution using the posterior parameter estimates of effect sizes that are normally distributed. This function will allow one to understand the overall magnitude of effect regardless of effect size direction.}
+\title{Applying the folded normal distribution using the posterior parameter estimates of effect sizes that are normally distributed. This function will allow one to understand the overall magnitude of effect regardless of effect size direction.}
 \usage{
 foldnorm(mu, sd, type = c("mean", "mode"))
 }
@@ -18,8 +17,11 @@ foldnorm(mu, sd, type = c("mean", "mode"))
 Posterior mean or mode along with the 95% credible intervals (i.e. the highest posterior density interval - HPDinterval)
 }
 \description{
-foldnorm
 Applying the folded normal distribution using the posterior parameter estimates of effect sizes that are normally distributed. This function will allow one to understand the overall magnitude of effect regardless of effect size direction.
+}
+\examples{
+dir <- paste0(system.file("extdata",  package="ibutt"), "/")
+data <- ibuttProc(dir, date = "2015-11-06", time = c("10:00", "11:00"), list = TRUE)
 }
 \author{
 Daniel Noble - daniel.noble@unsw.edu.au
