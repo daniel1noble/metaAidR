@@ -2,28 +2,40 @@
 % Please edit documentation in R/foldnorm.R
 \name{foldnorm}
 \alias{foldnorm}
-\title{Applying the folded normal distribution using the posterior parameter estimates of effect sizes that are normally distributed. This function will allow one to understand the overall magnitude of effect regardless of effect size direction.}
+\title{Folded normal distribution}
 \usage{
-foldnorm(mu, sd, type = c("mean", "mode"))
+foldnorm(mu, sd, type = c("mean", "mode", "raw"))
 }
 \arguments{
-\item{mu}{The posterior distribution of mean estimates from an MCMCglmm object.}
+\item{mu}{The posterior distribution of mean estimates from an MCMCglmm object. Alternatively, you can give it the mean and sd of a normal distribution and it will provide the mean (only used if type = "raw").}
 
-\item{sd}{The standard deviation of the posterior distribution of variance-covariance matrix from an MCMCglmm object.}
+\item{sd}{The standard deviation of the posterior distribution of variance-covariance matrix from an MCMCglmm object or just the sd of a normal distribution.}
 
-\item{type}{Indicates whether the posterior mean (i.e. "mean") or mode (i.e. "mode") should be returned.}
+\item{type}{Indicates whether the posterior mean (i.e. "mean") or mode (i.e. "mode") should be returned. Alternatively, if one knows the mean and the sd of you can use type = "raw" to get the mean and variance of the folded normal distribution.}
 }
 \value{
-Posterior mean or mode along with the 95% credible intervals (i.e. the highest posterior density interval - HPDinterval)
+Posterior mean or mode along with the 95 percent credible intervals (i.e. the highest posterior density interval - HPDinterval). Alternatively if type = "raw" it will return the mean and variance for the folded normal distribution.
 }
 \description{
 Applying the folded normal distribution using the posterior parameter estimates of effect sizes that are normally distributed. This function will allow one to understand the overall magnitude of effect regardless of effect size direction.
 }
 \examples{
-dir <- paste0(system.file("extdata",  package="ibutt"), "/")
-data <- ibuttProc(dir, date = "2015-11-06", time = c("10:00", "11:00"), list = TRUE)
+set.seed(60)
+x <- rnorm(1000, 1, 1)
+mean(x)
+sd(x)
+# Calculate the mean of the folded norm from raw x
+foldnorm(mu = mean(x), sd = sd(x), type = "raw")
+#Should be close to: 
+mean(abs(x))
+var(abs(x))
 }
 \author{
 Daniel Noble - daniel.noble@unsw.edu.au
+}
+\references{
+Morrisey, M.B. 2016. Meta-analysis of magnitudes, differences and variation in evolutionary parameters. Journal of Evolutionary Biology, 29:1882-1904
+
+Morrisey, M.B. 2016. Rejoinder: Further considerations for meta-analysis of transformed quantities such as absolute values. Journal of Evolutionary Biology, 29:1922-1931
 }
 
