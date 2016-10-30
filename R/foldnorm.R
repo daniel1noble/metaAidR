@@ -1,6 +1,5 @@
 
 #' @title Folded normal distribution
-#'
 #' @description Applying the folded normal distribution using the posterior parameter estimates of effect sizes that are normally distributed. This function will allow one to understand the overall magnitude of effect regardless of effect size direction. 
 #' @param mu The posterior distribution of mean estimates from an MCMCglmm object. Alternatively, you can give it the mean and sd of a normal distribution and it will provide the mean (only used if type = "raw").
 #' @param sd The standard deviation of the posterior distribution of variance-covariance matrix from an MCMCglmm object or just the sd of a normal distribution. 
