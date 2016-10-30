@@ -4,7 +4,7 @@
 #' @param model The MCMCglmm model object
 #' @param v The vector of sampling variance for each effect size. 
 #' @param group The specific variance components one wishes to extract. Note that mev might be included in the model or as part of ginverse and these will be excluded if group = FALSE
-#' @param re.list A list of variance estimates one wishes to derive $I^2$ estimates for. These could include phylogenetic heritability ($H^2$), species ($I^2_{sp}$) and study (\eqn{I^2_{stdy}} or often called \eqn{tau^2}). 
+#' @param re.list A list of variance estimates one wishes to derive $I^2$ estimates for. These could include phylogenetic heritability (H^{2}), species ($I^2_{sp}$) and study (\eqn{I^2_{stdy}} or often called ($\tau^{2}$). 
 #' @return A data.frame containing the relevant I^2 measures along with the 95$%$ credible intervals for each element listed in the re.list argument 
 #' @author Daniel Noble - daniel.noble@unsw.edu.au
 #' @references Nakagawa, S. and Santos, E.S.A. (2012) Methodological issues and advances in biological meta-analysis. Evolutionary Ecology, 26:1253-1274.
