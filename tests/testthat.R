@@ -1,4 +1,4 @@
 library(testthat)
-library(metaAid)
+library(metaAidR)
 
-test_check("metaAid")
+test_check("metaAidR")
