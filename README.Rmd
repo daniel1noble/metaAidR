@@ -1,3 +1,6 @@
-**metaAidR**
-Helping you meta-analyze since 2016
+#**metaAidR**
+
+## **Description**
+
+This package will accompany a 'how-to' paper. It is under active development and no function have yet been tested or even correctly implemented. 
 
