@@ -1,7 +1,7 @@
 Package: metaAidR
 Title: Functions and data for aiding meta-analyses in ecology and evolution
 Version: 0.0.0.9000
-Authors@R:c(person("Malgorzata", "Lagisz", email="m.nakagawa-lagisz@unsw.edu.au", role=c("aut")),person("Alistair", "Senior", email="alistair.senior1985@gmail.com", role=c("aut")),person("Shinichi", "Nakagawa", email="s.nakagawa@unsw.edu.au", role=c("aut")),person("Daniel", "Noble", email="daniel.wa.noble@gmail.com", role=c("aut", "cre")))
+Authors@R: c(person("Malgorzata", "Lagisz", email="m.nakagawa-lagisz@unsw.edu.au", role=c("aut")),person("Alistair", "Senior", email="alistair.senior1985@gmail.com", role=c("aut")),person("Shinichi", "Nakagawa", email="s.nakagawa@unsw.edu.au", role=c("aut")),person("Daniel", "Noble", email="daniel.wa.noble@gmail.com", role=c("aut", "cre")))
 Description: Functions for aiding meta-analyses in ecology and evolution.
     Contains functions for converting descriptive data to relevant statistics for
     calculating effect size, deriving correlation and covariance matrices to control
@@ -15,7 +15,8 @@ Imports:
     MCMCglmm,
     metafor,
     dplyr,
-    coda
+    coda,
+    stats
 Suggests:
     knitr,
     rmarkdown,

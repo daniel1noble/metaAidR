@@ -22,11 +22,11 @@
 
 foldnorm <-  function(mu, sd, type = c("mean", "mode", "raw")){
 	
-     postfnorm <- dnorm(mu, 0, sd)*2*sd^2 + mu*(2*pnorm(mu, 0, sd) -1)
+     postfnorm <- stats::dnorm(mu, 0, sd)*2*sd^2 + mu*(2*stats::pnorm(mu, 0, sd) -1)
 
 	if(type == "raw"){
 		    est <- postfnorm
-		    var.fnorm <- mu^2 + sd^2 - (sd*sqrt(2/pi)*exp((-1*mu^2)/(2*sd^2)) + mu*(1-2*pnorm(-1*mu/sd, 0, 1)))^2
+		    var.fnorm <- mu^2 + sd^2 - (sd*sqrt(2/pi)*exp((-1*mu^2)/(2*sd^2)) + mu*(1-2*stats::pnorm(-1*mu/sd, 0, 1)))^2
 		    est <- data.frame(Mean=est, Variance = var.fnorm)
 	}
 
