@@ -6,9 +6,9 @@
 \title{ooUnAdjtradeoff}
 \format{A raw csv file containing the following columns and descriptors}
 \description{
-Data set investing the correlations between offspring size and offspring number not adjusting for maternal size (dataset 3 - O-O.Unadjusted). Data was taken from Lim et al. (2014).
+Data set investing the correlations between offspring size and offspring number not adjusting for maternal size (dataset 4: OO.Unadjusted). Data was taken from Lim et al. (2014).
 }
 \references{
-Lim, J. N., Senior, A. M. and Nakagawa, S. (2014) Heterogeneity in individual quality and reproductive trade-offs within species. Evolution. 68: 2306–2318
+Lim, J. N., Senior, A. M. and Nakagawa, S. (2014) Heterogeneity in individual quality and reproductive trade-offs within species. Evolution, 68:2306-2318.
 }
 

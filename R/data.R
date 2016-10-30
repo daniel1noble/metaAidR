@@ -58,33 +58,33 @@ NULL
 NULL
 
 #' @title moSizetradeoff
-#' @description Data set investing the correlations between maternal size and offspring size (dataset 1 - M-O.size). Data was taken from Lim et al. (2014). 
+#' @description Data set investing the correlations between maternal size and offspring size (dataset 1: MO.size). Data was taken from Lim et al. (2014). 
 #' @format A raw csv file containing the following columns and descriptors
-#' @references Lim, J. N., Senior, A. M. and Nakagawa, S. (2014) Heterogeneity in individual quality and reproductive trade-offs within species. Evolution. 68: 2306–2318
+#' @references Lim, J. N., Senior, A. M. and Nakagawa, S. (2014) Heterogeneity in individual quality and reproductive trade-offs within species. Evolution, 68:2306-2318.
 #' @name moSizetradeoff
 #' @docType data
 NULL
 
 #' @title moNumtradeoff
-#' @description Data set investing the correlations between maternal size and offspring number (dataset 2 - M-O.Number). Data was taken from Lim et al. (2014). 
+#' @description Data set investing the correlations between maternal size and offspring number (dataset 2: MO.Number). Data was taken from Lim et al. (2014). 
 #' @format A raw csv file containing the following columns and descriptors
-#' @references Lim, J. N., Senior, A. M. and Nakagawa, S. (2014) Heterogeneity in individual quality and reproductive trade-offs within species. Evolution. 68: 2306–2318
+#' @references Lim, J. N., Senior, A. M. and Nakagawa, S. (2014) Heterogeneity in individual quality and reproductive trade-offs within species. Evolution, 68:2306-2318.
 #' @name moNumtradeoff
 #' @docType data
 NULL
 
 #' @title ooAdjtradeoff
-#' @description Data set investing the correlations between offspring size and offspring number after adjusting for maternal size(dataset 3 - O-O.Adjusted). Data was taken from Lim et al. (2014). 
+#' @description Data set investing the correlations between offspring size and offspring number after adjusting for maternal size(dataset 3: OO.Adjusted). Data was taken from Lim et al. (2014). 
 #' @format A raw csv file containing the following columns and descriptors	
-#' @references Lim, J. N., Senior, A. M. and Nakagawa, S. (2014) Heterogeneity in individual quality and reproductive trade-offs within species. Evolution. 68: 2306–2318
+#' @references Lim, J. N., Senior, A. M. and Nakagawa, S. (2014) Heterogeneity in individual quality and reproductive trade-offs within species. Evolution, 68:2306-2318.
 #' @name ooAdjtradeoff
 #' @docType data
 NULL
 
 #' @title ooUnAdjtradeoff
-#' @description Data set investing the correlations between offspring size and offspring number not adjusting for maternal size (dataset 3 - O-O.Unadjusted). Data was taken from Lim et al. (2014). 
+#' @description Data set investing the correlations between offspring size and offspring number not adjusting for maternal size (dataset 4: OO.Unadjusted). Data was taken from Lim et al. (2014). 
 #' @format A raw csv file containing the following columns and descriptors	
-#' @references Lim, J. N., Senior, A. M. and Nakagawa, S. (2014) Heterogeneity in individual quality and reproductive trade-offs within species. Evolution. 68: 2306–2318
+#' @references Lim, J. N., Senior, A. M. and Nakagawa, S. (2014) Heterogeneity in individual quality and reproductive trade-offs within species. Evolution, 68:2306-2318.
 #' @name ooUnAdjtradeoff
 #' @docType data
 NULL

@@ -6,9 +6,9 @@
 \title{moSizetradeoff}
 \format{A raw csv file containing the following columns and descriptors}
 \description{
-Data set investing the correlations between maternal size and offspring size (dataset 1 - M-O.size). Data was taken from Lim et al. (2014).
+Data set investing the correlations between maternal size and offspring size (dataset 1: MO.size). Data was taken from Lim et al. (2014).
 }
 \references{
-Lim, J. N., Senior, A. M. and Nakagawa, S. (2014) Heterogeneity in individual quality and reproductive trade-offs within species. Evolution. 68: 2306–2318
+Lim, J. N., Senior, A. M. and Nakagawa, S. (2014) Heterogeneity in individual quality and reproductive trade-offs within species. Evolution, 68:2306-2318.
 }
 
