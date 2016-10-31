@@ -88,3 +88,20 @@ NULL
 #' @name ooUnAdjtradeoff
 #' @docType data
 NULL
+
+#' @title mtor data
+#' @description Data set investing whether changes in mTOR (rapamycin) signaling extend lifespan. Data was taken from Garratt et al. (2016). 
+#' @format A raw csv file containing the following columns and descriptors	
+#' @references Garratt, M., Nakagawa, S., Simons, M.J.P. (2016) Comparative idiosyncrasies in life extension by reduced mTOR signaling and its distinctiveness from dietary restriction. Aging Cell, 15: 737-743.
+#' @name mtor
+#' @docType data
+NULL
+
+
+#' @title heat shock and life extension data
+#' @description Data set investing the impact of heat shock exposure on longevity. Data was taken from Lagisz et al. (2013). 
+#' @format A raw csv file containing the following columns and descriptors	
+#' @references Lagisz, M., Hector, K.L. and Nakagawa, S. (2013) Life exstension after heat shock exposure: Assessing meta-analytic evidence for hormesis. Ageing Research Reviews, 12:653-660.
+#' @name heatshock
+#' @docType data
+NULL
