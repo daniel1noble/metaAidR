@@ -7,6 +7,43 @@
 \format{A raw csv file containing the following columns and descriptors}
 \description{
 Data set investing the impact of heat shock exposure on longevity. Data was taken from Lagisz et al. (2013).
+\enumerate{
+\item dataID: Unique identifier for each comparison of a pair of survival curves between the control group (con) and the heat-shocked group (hs).
+\item papID: Unique identifier for each study (i.e. paper) in the dataset.
+\item expID: Unique identifier for separate experiments within each study (usually determined by having separate control group).
+\item author: Study first author nam.
+\item pubyear: Year of publication of the study.
+\item journal: Name of journals in which the study was published.
+\item IF: Journal Impact Factor (2011, JCR).
+\item name: Common name of the species.
+\item genus: Genus name of the species.
+\item species: Latin name of the species.
+\item strain: Unique strain name for particular.
+\item class: Taxonomic classe of the species.
+\item family:  Taxonomic family of the species.
+\item animal: Unique identifier for  the species.
+\item sex: Sex category (M = males, F = females, H = none/hermaphrodite or B = males and females).
+\item age: Age of animals at the time of the first heat shock (days from egg) [day].
+\item relage: Age of animals individuals at the time of the first heat shock (days from egg) divided by maximum life span observed in the control group (con_maxLS).
+\item conN: Number of individuals in the control group.
+\item hsN: Number of individuals in the heat-shocked group.
+\item conTemp: Standard (control) temperature in which animals were kept [C].
+\item hsTemp: Heat-shock temperature [C].
+\item tempDiff: Difference between control andheat-shock temperature [C].
+\item duration: Single heat-shock duration [h].
+\item repeats: How many times heat-shock was repeated.
+\item spacing: Time interval between heat shocks [h].
+\item maxCon: Time from the start of the experiment when the last animal in the control group died (maximum observed longevity) [day].
+\item maxCon_LS: Time from the start of the experiment when the last animal in the control group died, corrected for the age at the start of the experiment (maximum lifespan) [day].
+\item p10con: Time since the start of the experiment when 10% of control animals were still alive [day].
+\item p10con_LS: Time since the start of the experiment when 10% of control animals were still alive, corrected for the age at the start of the experiment [day].
+\item p90,p80,p70,p60,p50,p40,p30,p20,p10: Proportion of heat-shocked group animals that were alive when 90%, 80%, 70%, 60%, 50%, 40%, 30%, 20, 10%, respectively, of control animals was still alive [proportion].
+\item lnHR: Overall ln(HR) for 9 time intervals.
+\item varHR: Variance of overall ln(HR) for the 9 time intervals.
+\item conN_uniq: Number of individuals in the control group, unique within each experiment.
+\item hsN_uniq: Number of individuals in the heat-shocked group, unique within each experiment.
+\item data_source: Name of the figure or table from which the survival data was extracted (or raw data, tables with additional information).
+}
 }
 \references{
 Lagisz, M., Hector, K.L. and Nakagawa, S. (2013) Life exstension after heat shock exposure: Assessing meta-analytic evidence for hormesis. Ageing Research Reviews, 12:653-660.
