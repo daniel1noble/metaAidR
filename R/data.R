@@ -142,3 +142,57 @@ NULL
 #' @name heatshock
 #' @docType data
 NULL
+
+
+#' @title sparrow data
+#' @description  Correlation between 
+#' @format A raw csv file containing the following columns and descriptors	
+#' \enumerate{
+#' \item StudyID: Study number
+#' \item Place: Location of sparrow population
+#' \item Correlation: correlation coefficient
+#' \item SampleSize: Sample size for study
+#'}
+#' @references Nakgawa, S., Ockendon, N., Gillespie, D.O.S., Hatchwell, B.J. and Burke, T. (2007) Assessing the function of house sparrows' bib size using a flexible meta-analysis method. Behavioural Ecology, 18:831-840.
+#' @name sparrows
+#' @docType data
+NULL
+
+#' @title Host manipulation and parasite data
+#' @description  Correlation between 
+#' @format A raw csv file containing the following columns and descriptors. UI = Uninfected; U = Infected	
+#' \enumerate{
+#' \item Parasite.species: Species of parasite
+#' \item Phylum: Phylum
+#' \item Class: Class
+#' \item Family: Family
+#'}
+#' @references Poulin, R. (2000) Manipulation of host behaviour by parasites: a weakening paradigm? Proceedings of the Royal Society B: Biological Sciences, 267: 1471-2954.
+#' @name parasites
+#' @docType data
+NULL
+
+
+#' @title Within pair paternity data and age
+#' @description  Proportion of within and extra-pair paternity for different ages. Data taken from Cleasby and Nakagawa (2012).
+#' @format A raw csv file containing the following columns and descriptors. 
+#' @references Cleasby, I.R. and Nakagawa, S. (2012) The influence of male age on within-pair and extra-pair paternity in passerines. Ibis, 154: 318-324.
+#' @name age_epp_wpp
+#' @docType data
+NULL
+
+#' @title Multivariate wpp and epp
+#' @description  Proportion of within and extra-pair paternity for different ages. Data taken from Cleasby and Nakagawa (2012).
+#' @format A raw csv file containing the following columns and descriptors. 
+#' @references Cleasby, I.R. and Nakagawa, S. (2012) The influence of male age on within-pair and extra-pair paternity in passerines. Ibis, 154: 318-324.
+#' @name multi_epp_wpp
+#' @docType data
+NULL
+
+#' @title plumage and dominance
+#' @description  A meta-analysis of the relationship between plumage traits and dominance in birds. Data taken from Santos et al. (2011).
+#' @format A raw csv file containing the following columns and descriptors. 
+#' @references Santos, E.S.A., Scheck, D. and Nakagawa, S. (2011) Dominance and plumage traits: meta-analysis and meta-regression analysis. Animal Behaviour, 82: 3-19.
+#' @name plumage
+#' @docType data
+NULL
