@@ -7,13 +7,13 @@
 lOR_es(p1, p2, n1, n2)
 }
 \arguments{
-\item{p1}{Proportion in treatment 1}
+\item{p1}{Proportion in group 1}
 
-\item{p2}{Proportion in treatment 2}
+\item{p2}{Proportion in group 2}
 
-\item{n1}{Sample size in treatment 1}
+\item{n1}{Sample size in group 1}
 
-\item{n2}{Sample size in treatment 2}
+\item{n2}{Sample size in group 2}
 }
 \description{
 Function for calculating log odds ratio effect size statistics

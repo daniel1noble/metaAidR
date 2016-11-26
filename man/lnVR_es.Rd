@@ -7,13 +7,13 @@
 lnVR_es(sd1, sd2, n1, n2)
 }
 \arguments{
-\item{sd1}{Standard deviation of treatment 1}
+\item{sd1}{Standard deviation of group 1}
 
-\item{sd2}{Standard deviation of treatment 2}
+\item{sd2}{Standard deviation of group 2}
 
-\item{n1}{Sample size of treatment 1}
+\item{n1}{Sample size of group 1}
 
-\item{n2}{Sample size of treatment 2}
+\item{n2}{Sample size of group 2}
 }
 \description{
 Function for calculating log variation ratio effect size statistics.

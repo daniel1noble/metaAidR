@@ -7,9 +7,9 @@
 lnSD_es(sd, n)
 }
 \arguments{
-\item{sd}{Standard deviation of treatment}
+\item{sd}{Standard deviation of group}
 
-\item{n}{Sample size of treatment}
+\item{n}{Sample size of group}
 }
 \description{
 Function for calculating log standard deviation effect size statistics

@@ -2,25 +2,25 @@
 % Please edit documentation in R/es_stat.R
 \name{var_lnCVR}
 \alias{var_lnCVR}
-\title{lnCVR}
+\title{Sampling variance for lnCVR}
 \usage{
 var_lnCVR(m1, m2, sd1, sd2, n1, n2, Equal.E.C.Corr = TRUE,
   repeated.control = FALSE, Control.IDs)
 }
 \arguments{
-\item{m1}{Mean of treatment 1}
+\item{m1}{Mean of group 1}
 
-\item{m2}{Mean of treatment 2}
+\item{m2}{Mean of group 2}
 
-\item{sd1}{Standard deviation of treatment 1}
+\item{sd1}{Standard deviation of group 1}
 
-\item{sd2}{Standard deviation of treatment 2}
+\item{sd2}{Standard deviation of group 2}
 
-\item{n1}{Sample size of treatment 1}
+\item{n1}{Sample size of group 1}
 
-\item{n2}{Sample size of treatment 2}
+\item{n2}{Sample size of group 2}
 
-\item{Equal.E.C.Corr}{Logical indicating whether the the correlation between mean and variance is equal in both treatment groups.}
+\item{Equal.E.C.Corr}{Logical indicating whether the the correlation between mean and variance is equal in both group groups.}
 
 \item{repeated.control}{Logical indicating whether there are repeated control groups used in the data set.}
 

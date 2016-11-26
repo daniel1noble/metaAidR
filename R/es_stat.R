@@ -1,17 +1,17 @@
-#' @title es_stat
-#' @description Function for calculating common effect size statistics.  Effect size statistics include both the effect size itself and it's sampling error. This function estimates both commonly used effect sizes (Hedges' d & g, Zr, lnOR, lnRR) along with less commonly used (lnHR) or newly developed effect sizes (i.e. for variance: lnCVR, lnVR, lnSD). 
-#' @param m1 Mean of treatment 1
-#' @param m2 Mean of treatment 2
-#' @param sd1 Standard deviation of treatment 1
-#' @param sd2 Standard deviation of treatment 2
-#' @param n1 Sample size of treatment 1
-#' @param n2 Sample size of treatment 2
-#' @param p1 Proportion in treatment 1
-#' @param p2 Proportion in treatment 2
-#' @param r Correlation coefficient
-#' @param nr Sample size used for estimating the correlation coefficient
-#' @param type The type specifies the specific effect statistics one wishes to calculate. Types include: "d", "g", "Zr","lnOR", "lnHR", "lnRR", "lnCVR", "lnVR". 
-
+#' @title es_stat: Function for calculating effect size statistics
+#' @description Function for calculating common effect size statistics.  Effect size statistics include both the effect size itself and its sampling error. This function estimates both commonly used effect sizes (Hedges' d & g, Zr, lnOR, lnRR) along with less commonly used (lnHR) or newly developed effect sizes (i.e. for variance: lnCVR, lnVR, lnSD). For two-group comparisons, directionally is dependent on the group used for m1 or p1. In all cases, m1 - m2 or p1 - p2 is contrasted.
+#' @param m1 Mean of group 1
+#' @param m2 Mean of group 2
+#' @param sd1 Standard deviation of group 1
+#' @param sd2 Standard deviation of group 2
+#' @param n1 Sample size of group 1
+#' @param n2 Sample size of group 2
+#' @param p1 Proportion in group 1. Used with type = "lnOR" only.
+#' @param p2 Proportion in group 2. Used with type = "lnOR" only.
+#' @param r Correlation coefficient. Used with type = "r" only .
+#' @param nr Sample size used for estimating the correlation coefficient. Used with type "r" only.
+#' @param type The type specifies the specific effect statistics one wishes to calculate. Types include: "d" = Hedges' d, "g" = bias corrected Hedges' d, "Zr" = Fisher's z-transformed correlation coefficient,"lnOR" = log odds ratio, "lnHR" = log hazards ratio, "lnRR" = log response ratio, "lnCVR" = log coefficient of variation ratio, "lnVR" = log variance ratio. 
+#' @return Function returns the effect size and its sampling variance in a matrix (two column, n rows). The arguments can be vectors. 
 #' @author Daniel Noble - daniel.noble@unsw.edu.au
 #' @export
 
@@ -45,12 +45,12 @@ es_stat <- function(m1, m2, sd1, sd2, n1, n2, p1, p2, r, nr, type = c("d", "g", 
 	
 #' @title hedge
 #' @description Function for calculating Hedges' d or biased corrected Hedges' g. 
-#' @param m1 Mean of treatment 1
-#' @param m2 Mean of treatment 2
-#' @param sd1 Standard deviation of treatment 1
-#' @param sd2 Standard deviation of treatment 2
-#' @param n1 Sample size of treatment 1
-#' @param n2 Sample size of treatment 2
+#' @param m1 Mean of group 1
+#' @param m2 Mean of group 2
+#' @param sd1 Standard deviation of group 1
+#' @param sd2 Standard deviation of group 2
+#' @param n1 Sample size of group 1
+#' @param n2 Sample size of group 2
 #' @param type  Whether Hedges' d (type = "d") and biased corrected Hedges' d or Hedges' g (type = "g") is the be used. 
 #' @references Borenstein et al. 2009. Effect sizes based on means. In: Introduction to Meta-Analysis (eds. Borenstein, M., Hedges, L.V., Higgins, J.P.T. and Rothstein, H.R.). pg 21-32.
 #' @author Daniel Noble - daniel.noble@unsw.edu.au
@@ -73,8 +73,8 @@ return(h_g)
 #' @title var_hedge
 #' @description Function for calculating the sampling variance for Hedges' d or biased corrected Hedges' g. 
 #' @param hedge Calculation of Hedges g or d
-#' @param n1 Sample size of treatment 1
-#' @param n2 Sample size of treatment 2
+#' @param n1 Sample size of group 1
+#' @param n2 Sample size of group 2
 #' @param type  Whether Hedges' d (type = "d") and biased corrected Hedges' d or Hedges' g (type = "g") is the be used. 
 #' @author Daniel Noble - daniel.noble@unsw.edu.au
 #' @export
@@ -106,10 +106,10 @@ Zr_es <- function(r, n){
 
 #' @title lnOR
 #' @description Function for calculating log odds ratio effect size statistics
-#' @param p1 Proportion in treatment 1
-#' @param p2 Proportion in treatment 2
-#' @param n1 Sample size in treatment 1
-#' @param n2 Sample size in treatment 2
+#' @param p1 Proportion in group 1
+#' @param p2 Proportion in group 2
+#' @param n1 Sample size in group 1
+#' @param n2 Sample size in group 2
 #' @author Daniel Noble - daniel.noble@unsw.edu.au
 #' @export
 
@@ -121,12 +121,12 @@ return(cbind(lnOR, v_lnOR))
 
 #' @title lnRR
 #' @description Function for calculating log response ratio
-#' @param m1 Mean of treatment 1
-#' @param m2 Mean of treatment 2
-#' @param sd1 Standard deviation of treatment 1
-#' @param sd2 Standard deviation of treatment 2
-#' @param n1 Sample size of treatment 1
-#' @param n2 Sample size of treatment 2
+#' @param m1 Mean of group 1
+#' @param m2 Mean of group 2
+#' @param sd1 Standard deviation of group 1
+#' @param sd2 Standard deviation of group 2
+#' @param n1 Sample size of group 1
+#' @param n2 Sample size of group 2
 #' @author Daniel Noble - daniel.noble@unsw.edu.au
 #' @export
 
@@ -139,31 +139,31 @@ return(cbind(lnRR,VlnRR))
 
 #' @title lnCVR
 #' @description Function for calculating log coefficient of variation ratio
-#' @param m1 Mean of treatment 1
-#' @param m2 Mean of treatment 2
-#' @param sd1 Standard deviation of treatment 1
-#' @param sd2 Standard deviation of treatment 2
-#' @param n1 Sample size of treatment 1
-#' @param n2 Sample size of treatment 2
+#' @param m1 Mean of group 1
+#' @param m2 Mean of group 2
+#' @param sd1 Standard deviation of group 1
+#' @param sd2 Standard deviation of group 2
+#' @param n1 Sample size of group 1
+#' @param n2 Sample size of group 2
 #' @references Nakagawa et al. 2015. 
 #' @author Alistair Senior - Alistair.senior@sydney.edu.au
 #' @export
 
 lnCVR_es<-function(m1, m2, sd1, sd2, n1, n2){
 	lnCVR <-(log(sd1) - log(m1) + 1 / (2*(n1 - 1))) - (log(sd2) - log(m2) + 1 / (2*(n2 - 1)))
-	return(ES)	
+	return(lnCVR)	
 }
 
 
-#' @title lnCVR
+#' @title Sampling variance for lnCVR
 #' @description Function for calculating sampling variance of log coefficient of variation ratio under different assumptions about mean-variance relationships. 
-#' @param m1 Mean of treatment 1
-#' @param m2 Mean of treatment 2
-#' @param sd1 Standard deviation of treatment 1
-#' @param sd2 Standard deviation of treatment 2
-#' @param n1 Sample size of treatment 1
-#' @param n2 Sample size of treatment 2
-#' @param Equal.E.C.Corr Logical indicating whether the the correlation between mean and variance is equal in both treatment groups.
+#' @param m1 Mean of group 1
+#' @param m2 Mean of group 2
+#' @param sd1 Standard deviation of group 1
+#' @param sd2 Standard deviation of group 2
+#' @param n1 Sample size of group 1
+#' @param n2 Sample size of group 2
+#' @param Equal.E.C.Corr Logical indicating whether the the correlation between mean and variance is equal in both group groups.
 #' @param repeated.control Logical indicating whether there are repeated control groups used in the data set.
 #' @param Control.IDs A vector indicating which rows share a common control
 #' @author Alistair Senior - Alistair.senior@sydney.edu.au
@@ -180,12 +180,12 @@ var_lnCVR<-function(m1, m2, sd1, sd2, n1, n2, Equal.E.C.Corr=TRUE, repeated.cont
 		}
 	
 	if(Equal.E.C.Corr==TRUE){
-		mvcorr<-cor.test(log(c(mean.control.for.cor, m2)), log(c(sd.control.for.cor, sd2)))$estimate
+		mvcorr<-stats::cor.test(log(c(mean.control.for.cor, m2)), log(c(sd.control.for.cor, sd2)))$estimate
 			
 		S2<- sd1^2 / (n1 * (m1^2)) + 1 / (2 * (n1 - 1)) - 2 * mvcorr * sqrt((sd1^2 / (n1 * (m1^2))) * (1 / (2 * (n1 - 1)))) + sd2^2 / (n2 * (m2^2)) + 1 / (2 * (n2 - 1)) - 2 * mvcorr * sqrt((sd2^2 / (n2 * (m2^2))) * (1 / (2 * (n2 - 1))))
 		}else{
-		Cmvcorr<-cor.test(log(mean.control.for.cor), log(sd.control.for.cor))$estimate
-		Emvcorr<-cor.test(log(m2), (sd2))$estimate
+		Cmvcorr<-stats::cor.test(log(mean.control.for.cor), log(sd.control.for.cor))$estimate
+		Emvcorr<-stats::cor.test(log(m2), (sd2))$estimate
 	
 		S2<- sd1^2 / (n1 * (m1^2)) + 1 / (2 * (n1 - 1)) - 2 * Cmvcorr * sqrt((sd1^2 / (n1 * (m1^2))) * (1 / (2 * (n1 - 1)))) + sd2^2 / (n2 * (m2^2)) + 1 / (2 * (n2 - 1)) - 2 * Emvcorr * sqrt((sd2^2 / (n2 * (m2^2))) * (1 / (2 * (n2 - 1))))	
 	}
@@ -194,8 +194,8 @@ return(S2)
 
 #' @title lnSD_es
 #' @description Function for calculating log standard deviation effect size statistics
-#' @param sd Standard deviation of treatment
-#' @param n Sample size of treatment
+#' @param sd Standard deviation of group
+#' @param n Sample size of group
 #' @references Nakagawa et al. 2015. 
 #' @author Alistair Senior - Alistair.senior@sydney.edu.au
 #' @export
@@ -207,10 +207,10 @@ lnSD_es<-function(sd, n){
 
 #' @title lnVR_es
 #' @description Function for calculating log variation ratio effect size statistics.
-#' @param sd1 Standard deviation of treatment 1
-#' @param sd2 Standard deviation of treatment 2
-#' @param n1 Sample size of treatment 1
-#' @param n2 Sample size of treatment 2
+#' @param sd1 Standard deviation of group 1
+#' @param sd2 Standard deviation of group 2
+#' @param n1 Sample size of group 1
+#' @param n2 Sample size of group 2
 #' @author Alistair Senior - Alistair.senior@sydney.edu.au
 #' @references Nakagawa et al. 2015. 
 

@@ -7,17 +7,17 @@
 lnCVR_es(m1, m2, sd1, sd2, n1, n2)
 }
 \arguments{
-\item{m1}{Mean of treatment 1}
+\item{m1}{Mean of group 1}
 
-\item{m2}{Mean of treatment 2}
+\item{m2}{Mean of group 2}
 
-\item{sd1}{Standard deviation of treatment 1}
+\item{sd1}{Standard deviation of group 1}
 
-\item{sd2}{Standard deviation of treatment 2}
+\item{sd2}{Standard deviation of group 2}
 
-\item{n1}{Sample size of treatment 1}
+\item{n1}{Sample size of group 1}
 
-\item{n2}{Sample size of treatment 2}
+\item{n2}{Sample size of group 2}
 }
 \description{
 Function for calculating log coefficient of variation ratio

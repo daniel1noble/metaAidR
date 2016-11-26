@@ -9,9 +9,9 @@ var_hedge(hedge, n1, n2, type = c("d", "g"))
 \arguments{
 \item{hedge}{Calculation of Hedges g or d}
 
-\item{n1}{Sample size of treatment 1}
+\item{n1}{Sample size of group 1}
 
-\item{n2}{Sample size of treatment 2}
+\item{n2}{Sample size of group 2}
 
 \item{type}{Whether Hedges' d (type = "d") and biased corrected Hedges' d or Hedges' g (type = "g") is the be used.}
 }

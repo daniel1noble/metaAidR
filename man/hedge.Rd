@@ -7,17 +7,17 @@
 hedge(m1, m2, sd1, sd2, n1, n2, type = c("d", "g"))
 }
 \arguments{
-\item{m1}{Mean of treatment 1}
+\item{m1}{Mean of group 1}
 
-\item{m2}{Mean of treatment 2}
+\item{m2}{Mean of group 2}
 
-\item{sd1}{Standard deviation of treatment 1}
+\item{sd1}{Standard deviation of group 1}
 
-\item{sd2}{Standard deviation of treatment 2}
+\item{sd2}{Standard deviation of group 2}
 
-\item{n1}{Sample size of treatment 1}
+\item{n1}{Sample size of group 1}
 
-\item{n2}{Sample size of treatment 2}
+\item{n2}{Sample size of group 2}
 
 \item{type}{Whether Hedges' d (type = "d") and biased corrected Hedges' d or Hedges' g (type = "g") is the be used.}
 }
