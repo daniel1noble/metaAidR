@@ -8,6 +8,26 @@ es_stat(m1, m2, sd1, sd2, n1, n2, p1, p2, r, nr, type = c("d", "g", "Zr",
   "lnOR", "lnRR", "lnCVR", "lnVR", "lnHR"))
 }
 \arguments{
+\item{m1}{Mean of treatment 1}
+
+\item{m2}{Mean of treatment 2}
+
+\item{sd1}{Standard deviation of treatment 1}
+
+\item{sd2}{Standard deviation of treatment 2}
+
+\item{n1}{Sample size of treatment 1}
+
+\item{n2}{Sample size of treatment 2}
+
+\item{p1}{Proportion in treatment 1}
+
+\item{p2}{Proportion in treatment 2}
+
+\item{r}{Correlation coefficient}
+
+\item{nr}{Sample size used for estimating the correlation coefficient}
+
 \item{type}{The type specifies the specific effect statistics one wishes to calculate. Types include: "d", "g", "Zr","lnOR", "lnHR", "lnRR", "lnCVR", "lnVR".}
 }
 \description{

@@ -1,6 +1,17 @@
 #' @title es_stat
 #' @description Function for calculating common effect size statistics.  Effect size statistics include both the effect size itself and it's sampling error. This function estimates both commonly used effect sizes (Hedges' d & g, Zr, lnOR, lnRR) along with less commonly used (lnHR) or newly developed effect sizes (i.e. for variance: lnCVR, lnVR, lnSD). 
+#' @param m1 Mean of treatment 1
+#' @param m2 Mean of treatment 2
+#' @param sd1 Standard deviation of treatment 1
+#' @param sd2 Standard deviation of treatment 2
+#' @param n1 Sample size of treatment 1
+#' @param n2 Sample size of treatment 2
+#' @param p1 Proportion in treatment 1
+#' @param p2 Proportion in treatment 2
+#' @param r Correlation coefficient
+#' @param nr Sample size used for estimating the correlation coefficient
 #' @param type The type specifies the specific effect statistics one wishes to calculate. Types include: "d", "g", "Zr","lnOR", "lnHR", "lnRR", "lnCVR", "lnVR". 
+
 #' @author Daniel Noble - daniel.noble@unsw.edu.au
 #' @export
 
