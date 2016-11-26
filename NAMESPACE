@@ -2,6 +2,8 @@
 
 export(I2)
 export(Zr_es)
+export(covMatrix)
+export(cov_matrix)
 export(es_stat)
 export(foldnorm)
 export(hedge)
