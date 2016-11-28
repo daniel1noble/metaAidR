@@ -10,12 +10,17 @@
 #' @param p2 Proportion in group 2. Used with type = "lnOR" only.
 #' @param r Correlation coefficient. Used with type = "r" only .
 #' @param nr Sample size used for estimating the correlation coefficient. Used with type "r" only.
+#' @param d1 Number of events (e.g. deaths) in time interval t-1 to t for group 1. Used for type "lnHR" only.
+#' @param d2 Number of events (e.g. deaths) in time interval t-1 to t for group 2. Used for type "lnHR" only.
+#' @param n1HR Number at risk for group 1 during time interval t-1 to t. Used for type "lnHR" only.
+#' @param n2HR Number at risk for group 2 during time interval t-1 to t. Used for type "lnHR" only.
+#' @param Equal.E.C.Corr Logical indicating whether the correlation between log mean and log sd are assumed to be the same (TRUE) or different (FALSE). USed only with type = "lnCVR".
 #' @param type The type specifies the specific effect statistics one wishes to calculate. Types include: "d" = Hedges' d, "g" = bias corrected Hedges' d, "Zr" = Fisher's z-transformed correlation coefficient,"lnOR" = log odds ratio, "lnHR" = log hazards ratio, "lnRR" = log response ratio, "lnCVR" = log coefficient of variation ratio, "lnVR" = log variance ratio. 
 #' @return Function returns the effect size and its sampling variance in a matrix (two column, n rows). The arguments can be vectors. 
 #' @author Daniel Noble - daniel.noble@unsw.edu.au
 #' @export
 
-es_stat <- function(m1, m2, sd1, sd2, n1, n2, p1, p2, r, nr, type = c("d", "g", "Zr","lnOR", "lnRR", "lnCVR", "lnVR", "lnHR")){
+es_stat <- function(m1, m2, sd1, sd2, n1, n2, p1, p2, d1, d2, n1HR, n2HR, r, nr, Equal.E.C.Corr=TRUE, type = c("d", "g", "Zr","lnOR", "lnRR", "lnCVR", "lnVR", "lnHR")){
 
 	if(type == "g"){
 		g     <- hedge(m1, m2, sd1, sd2, n1, n2, type = "g")
@@ -41,6 +46,19 @@ es_stat <- function(m1, m2, sd1, sd2, n1, n2, p1, p2, r, nr, type = c("d", "g", 
 		return(lnRR_es(m1, m2, sd1, sd2, n1, n2))
 	}
 
+	if(type == "lnHR"){
+		return(lnHR_es(d1, d2, n1, n2))
+	}
+
+	if(type == "lnVR"){
+		return(lnVR_es(sd1, sd2, n1, n2))
+	}
+
+	if(type == "lnCVR"){
+		lnCVR <- lnCVR_es(m1, m2, sd1, sd2, n1, n2)
+		v_lnCVR <-var_lnCVR(m1, m2, sd1, sd2, n1, n2, ...)
+		return(cbind(lnCVR, v_lnCVR))
+	}
 }
 	
 #' @title hedge
@@ -164,27 +182,17 @@ lnCVR_es<-function(m1, m2, sd1, sd2, n1, n2){
 #' @param n1 Sample size of group 1
 #' @param n2 Sample size of group 2
 #' @param Equal.E.C.Corr Logical indicating whether the the correlation between mean and variance is equal in both group groups.
-#' @param repeated.control Logical indicating whether there are repeated control groups used in the data set.
-#' @param Control.IDs A vector indicating which rows share a common control
 #' @author Alistair Senior - Alistair.senior@sydney.edu.au
 #' @references Nakagawa et al. 2015. 
 #' @export
-var_lnCVR<-function(m1, m2, sd1, sd2, n1, n2, Equal.E.C.Corr=TRUE, repeated.control = FALSE, Control.IDs){
+var_lnCVR<-function(m1, m2, sd1, sd2, n1, n2, Equal.E.C.Corr=TRUE){
 
-	if(repeated.control == TRUE){
-		mean.control.for.cor<-m1[match(unique(Control.IDs), Control.IDs)]
-		sd.control.for.cor<-sd1[match(unique(Control.IDs), Control.IDs)]
-	}else{
-		mean.control.for.cor<-m1
-		sd.control.for.cor<-sd1	
-		}
-	
 	if(Equal.E.C.Corr==TRUE){
-		mvcorr<-stats::cor.test(log(c(mean.control.for.cor, m2)), log(c(sd.control.for.cor, sd2)))$estimate
+		mvcorr<-stats::cor.test(log(c(m1, m2)), log(c(sd1, sd2)))$estimate
 			
 		S2<- sd1^2 / (n1 * (m1^2)) + 1 / (2 * (n1 - 1)) - 2 * mvcorr * sqrt((sd1^2 / (n1 * (m1^2))) * (1 / (2 * (n1 - 1)))) + sd2^2 / (n2 * (m2^2)) + 1 / (2 * (n2 - 1)) - 2 * mvcorr * sqrt((sd2^2 / (n2 * (m2^2))) * (1 / (2 * (n2 - 1))))
 		}else{
-		Cmvcorr<-stats::cor.test(log(mean.control.for.cor), log(sd.control.for.cor))$estimate
+		Cmvcorr<-stats::cor.test(log(m1), log(sd1))$estimate
 		Emvcorr<-stats::cor.test(log(m2), (sd2))$estimate
 	
 		S2<- sd1^2 / (n1 * (m1^2)) + 1 / (2 * (n1 - 1)) - 2 * Cmvcorr * sqrt((sd1^2 / (n1 * (m1^2))) * (1 / (2 * (n1 - 1)))) + sd2^2 / (n2 * (m2^2)) + 1 / (2 * (n2 - 1)) - 2 * Emvcorr * sqrt((sd2^2 / (n2 * (m2^2))) * (1 / (2 * (n2 - 1))))	
@@ -218,4 +226,24 @@ lnVR_es<-function(sd1, sd2, n1, n2){
 	lnVR <- log(sd1 / sd2) + (1 / (2 * (n1 - 1))) - (1 / (2 * (n2 - 1)))
 	v_lnVR <- (1 / (2 * (n1 - 1))) + (1 / (2 * (n2 - 1)))
 	return(cbind(lnVR, v_lnVR))
+}
+
+
+#' @title lnHR_es
+#' @description Function for calculating log hazards ratio effect size statistics, for a specified period in time-to-event or survival curve data.
+#' @param d1 Number of events (e.g. deaths) in time interval t-1 to t for group 1
+#' @param d2 Number of events (e.g. deaths) in time interval t-1 to t for group 2
+#' @param n1HR Number at risk for group 1 during time interval t-1 to t
+#' @param n2HR Number at risk for group 2 during time interval t-1 to t
+#' @author Daniel Noble - daniel.noble@unsw.edu.au
+#' @references Williamson PR, Smith CT, Hutton JL,  Marson AG (2002). Aggregate data meta-analysis with time-to-event outcomes. Stat. Med. 21, 3337-3351.
+#' @references Parmar MKB, Torri V,  Stewart L (1998). Extracting summary statistics to perform meta-analyses of the published literature for survival endpoints. Stat. Med. 17, 2815-2834.
+#' @export
+lnHR_es <- function(d1, d2, n1HR, n2HR){
+	et <- (d1 + d2) * ((n1HR*n2HR) / (n1HR + n2HR))
+	wt <- (d1 + d2) * ((n1HR*n2HR) / (n1HR + n2HR)^2)
+
+	lnHRt <- (d1 - et) / wt
+	var_lnHRt <- 1 / wt
+    return(cbind(lnHRt, var_lnHRt))
 }
