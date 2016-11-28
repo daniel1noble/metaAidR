@@ -4,9 +4,8 @@
 \alias{es_stat}
 \title{es_stat: Function for calculating effect size statistics}
 \usage{
-es_stat(m1, m2, sd1, sd2, n1, n2, p1, p2, d1, d2, n1HR, n2HR, r, nr,
-  Equal.E.C.Corr = TRUE, type = c("d", "g", "Zr", "lnOR", "lnRR", "lnCVR",
-  "lnVR", "lnHR"))
+es_stat(m1, m2, sd1, sd2, n1, n2, p1, p2, r, nr, type = c("d", "g", "Zr",
+  "lnOR"))
 }
 \arguments{
 \item{m1}{Mean of group 1}
@@ -25,27 +24,17 @@ es_stat(m1, m2, sd1, sd2, n1, n2, p1, p2, d1, d2, n1HR, n2HR, r, nr,
 
 \item{p2}{Proportion in group 2. Used with type = "lnOR" only.}
 
-\item{d1}{Number of events (e.g. deaths) in time interval t-1 to t for group 1. Used for type "lnHR" only.}
-
-\item{d2}{Number of events (e.g. deaths) in time interval t-1 to t for group 2. Used for type "lnHR" only.}
-
-\item{n1HR}{Number at risk for group 1 during time interval t-1 to t. Used for type "lnHR" only.}
-
-\item{n2HR}{Number at risk for group 2 during time interval t-1 to t. Used for type "lnHR" only.}
-
 \item{r}{Correlation coefficient. Used with type = "r" only .}
 
 \item{nr}{Sample size used for estimating the correlation coefficient. Used with type "r" only.}
 
-\item{Equal.E.C.Corr}{Logical indicating whether the correlation between log mean and log sd are assumed to be the same (TRUE) or different (FALSE). USed only with type = "lnCVR".}
-
-\item{type}{The type specifies the specific effect statistics one wishes to calculate. Types include: "d" = Hedges' d, "g" = bias corrected Hedges' d, "Zr" = Fisher's z-transformed correlation coefficient,"lnOR" = log odds ratio, "lnHR" = log hazards ratio, "lnRR" = log response ratio, "lnCVR" = log coefficient of variation ratio, "lnVR" = log variance ratio.}
+\item{type}{The type specifies the specific effect statistics one wishes to calculate. Types include: "d" = Hedges' d, "g" = bias corrected Hedges' d, "Zr" = Fisher's z-transformed correlation coefficient,"lnOR" = log odds ratio.}
 }
 \value{
 Function returns the effect size and its sampling variance in a matrix (two column, n rows). The arguments can be vectors.
 }
 \description{
-Function for calculating common effect size statistics.  Effect size statistics include both the effect size itself and its sampling error. This function estimates both commonly used effect sizes (Hedges' d & g, Zr, lnOR, lnRR) along with less commonly used (lnHR) or newly developed effect sizes (i.e. for variance: lnCVR, lnVR, lnSD). For two-group comparisons, directionally is dependent on the group used for m1 or p1. In all cases, m1 - m2 or p1 - p2 is contrasted.
+Function for calculating common effect size statistics.  Effect size statistics include both the effect size itself and its sampling error. This function estimates both commonly used effect sizes (Hedges' d & g, Zr, lnOR, lnRR) along with an ability to convert between the different effect size statistics. For two-group comparisons, directionally is dependent on the group used for m1 or p1. In all cases, m1 - m2 or p1 - p2 is contrasted.
 }
 \author{
 Daniel Noble - daniel.noble@unsw.edu.au

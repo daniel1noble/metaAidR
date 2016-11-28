@@ -1,5 +1,5 @@
 #' @title es_stat: Function for calculating effect size statistics
-#' @description Function for calculating common effect size statistics.  Effect size statistics include both the effect size itself and its sampling error. This function estimates both commonly used effect sizes (Hedges' d & g, Zr, lnOR, lnRR) along with less commonly used (lnHR) or newly developed effect sizes (i.e. for variance: lnCVR, lnVR, lnSD). For two-group comparisons, directionally is dependent on the group used for m1 or p1. In all cases, m1 - m2 or p1 - p2 is contrasted.
+#' @description Function for calculating common effect size statistics.  Effect size statistics include both the effect size itself and its sampling error. This function estimates both commonly used effect sizes (Hedges' d & g, Zr, lnOR, lnRR) along with an ability to convert between the different effect size statistics. For two-group comparisons, directionally is dependent on the group used for m1 or p1. In all cases, m1 - m2 or p1 - p2 is contrasted.
 #' @param m1 Mean of group 1
 #' @param m2 Mean of group 2
 #' @param sd1 Standard deviation of group 1
@@ -10,17 +10,12 @@
 #' @param p2 Proportion in group 2. Used with type = "lnOR" only.
 #' @param r Correlation coefficient. Used with type = "r" only .
 #' @param nr Sample size used for estimating the correlation coefficient. Used with type "r" only.
-#' @param d1 Number of events (e.g. deaths) in time interval t-1 to t for group 1. Used for type "lnHR" only.
-#' @param d2 Number of events (e.g. deaths) in time interval t-1 to t for group 2. Used for type "lnHR" only.
-#' @param n1HR Number at risk for group 1 during time interval t-1 to t. Used for type "lnHR" only.
-#' @param n2HR Number at risk for group 2 during time interval t-1 to t. Used for type "lnHR" only.
-#' @param Equal.E.C.Corr Logical indicating whether the correlation between log mean and log sd are assumed to be the same (TRUE) or different (FALSE). USed only with type = "lnCVR".
-#' @param type The type specifies the specific effect statistics one wishes to calculate. Types include: "d" = Hedges' d, "g" = bias corrected Hedges' d, "Zr" = Fisher's z-transformed correlation coefficient,"lnOR" = log odds ratio, "lnHR" = log hazards ratio, "lnRR" = log response ratio, "lnCVR" = log coefficient of variation ratio, "lnVR" = log variance ratio. 
+#' @param type The type specifies the specific effect statistics one wishes to calculate. Types include: "d" = Hedges' d, "g" = bias corrected Hedges' d, "Zr" = Fisher's z-transformed correlation coefficient,"lnOR" = log odds ratio.
 #' @return Function returns the effect size and its sampling variance in a matrix (two column, n rows). The arguments can be vectors. 
 #' @author Daniel Noble - daniel.noble@unsw.edu.au
 #' @export
 
-es_stat <- function(m1, m2, sd1, sd2, n1, n2, p1, p2, d1, d2, n1HR, n2HR, r, nr, Equal.E.C.Corr=TRUE, type = c("d", "g", "Zr","lnOR", "lnRR", "lnCVR", "lnVR", "lnHR")){
+es_stat <- function(m1, m2, sd1, sd2, n1, n2, p1, p2, r, nr, type = c("d", "g", "Zr","lnOR")){
 
 	if(type == "g"){
 		g     <- hedge(m1, m2, sd1, sd2, n1, n2, type = "g")
@@ -42,6 +37,26 @@ es_stat <- function(m1, m2, sd1, sd2, n1, n2, p1, p2, d1, d2, n1HR, n2HR, r, nr,
 		return(lOR_es(p1, p2, n1, n2))
 	}
 
+}
+
+#' @title es_ratio: Function for calculating ratio-based effect size statistics
+#' @description  This function estimates less commonly used (lnHR) or newly developed effect sizes (i.e. for variance: lnCVR, lnVR, lnSD). Effect size statistics include both the effect size itself and its sampling error. For two-group comparisons, directionally is dependent on the group used for m1 or d1. In all cases, m1 - m2 or d1-d2 is contrasted.
+#' @param m1 Mean of group 1
+#' @param m2 Mean of group 2
+#' @param sd1 Standard deviation of group 1
+#' @param sd2 Standard deviation of group 2
+#' @param n1 Sample size of group 1
+#' @param n2 Sample size of group 2
+#' @param d1 Number of events (e.g. deaths) in time interval t-1 to t for group 1. Used for type "lnHR" only.
+#' @param d2 Number of events (e.g. deaths) in time interval t-1 to t for group 2. Used for type "lnHR" only.
+#' @param n1HR Number at risk for group 1 during time interval t-1 to t. Used for type "lnHR" only.
+#' @param n2HR Number at risk for group 2 during time interval t-1 to t. Used for type "lnHR" only.
+#' @param Equal.E.C.Corr Logical indicating whether the correlation between log mean and log sd are assumed to be the same (TRUE) or different (FALSE). USed only with type = "lnCVR".
+#' @param type The type specifies the specific effect statistics one wishes to calculate. Types include: "lnHR" = log hazards ratio, "lnRR" = log response ratio, "lnCVR" = log coefficient of variation ratio, "lnVR" = log variance ratio. 
+#' @return Function returns the effect size and its sampling variance in a matrix (two column, n rows). The arguments can be vectors. 
+#' @author Daniel Noble - daniel.noble@unsw.edu.au
+#' @export
+es_ratio <- function(m1, m2, sd1, sd2, n1, n2, d1, d2, n1HR, n2HR, Equal.E.C.Corr=TRUE, type = c("lnRR", "lnCVR", "lnVR", "lnHR")){
 	if(type == "lnRR"){
 		return(lnRR_es(m1, m2, sd1, sd2, n1, n2))
 	}
@@ -60,7 +75,9 @@ es_stat <- function(m1, m2, sd1, sd2, n1, n2, p1, p2, d1, d2, n1HR, n2HR, r, nr,
 		return(cbind(lnCVR, v_lnCVR))
 	}
 }
-	
+
+
+
 #' @title hedge
 #' @description Function for calculating Hedges' d or biased corrected Hedges' g. m1 is subtracted from m2.
 #' @param m1 Mean of group 1
