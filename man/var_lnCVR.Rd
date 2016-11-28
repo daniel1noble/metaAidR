@@ -28,6 +28,6 @@ Function for calculating sampling variance of log coefficient of variation ratio
 Alistair Senior - Alistair.senior@sydney.edu.au
 }
 \references{
-Nakagawa et al. 2015.
+Nakagawa et al. (2015) Meta-analysis of variation: ecological and evolutionary applications and beyond. Methods in Ecology and Evolution, 6:143-152.
 }
 

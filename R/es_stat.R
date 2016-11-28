@@ -163,7 +163,7 @@ return(cbind(lnRR,VlnRR))
 #' @param sd2 Standard deviation of group 2
 #' @param n1 Sample size of group 1
 #' @param n2 Sample size of group 2
-#' @references Nakagawa et al. 2015. 
+#' @references Nakagawa et al. (2015) Meta-analysis of variation: ecological and evolutionary applications and beyond. Methods in Ecology and Evolution, 6:143-152.
 #' @author Alistair Senior - Alistair.senior@sydney.edu.au
 #' @export
 
@@ -183,7 +183,7 @@ lnCVR_es<-function(m1, m2, sd1, sd2, n1, n2){
 #' @param n2 Sample size of group 2
 #' @param Equal.E.C.Corr Logical indicating whether the the correlation between mean and variance is equal in both group groups.
 #' @author Alistair Senior - Alistair.senior@sydney.edu.au
-#' @references Nakagawa et al. 2015. 
+#' @references Nakagawa et al. (2015) Meta-analysis of variation: ecological and evolutionary applications and beyond. Methods in Ecology and Evolution, 6:143-152.
 #' @export
 var_lnCVR<-function(m1, m2, sd1, sd2, n1, n2, Equal.E.C.Corr=TRUE){
 
@@ -204,7 +204,7 @@ return(S2)
 #' @description Function for calculating log standard deviation effect size statistics
 #' @param sd Standard deviation of group
 #' @param n Sample size of group
-#' @references Nakagawa et al. 2015. 
+#' @references Nakagawa et al. (2015) Meta-analysis of variation: ecological and evolutionary applications and beyond. Methods in Ecology and Evolution, 6:143-152. 
 #' @author Alistair Senior - Alistair.senior@sydney.edu.au
 #' @export
 lnSD_es<-function(sd, n){
@@ -220,8 +220,8 @@ lnSD_es<-function(sd, n){
 #' @param n1 Sample size of group 1
 #' @param n2 Sample size of group 2
 #' @author Alistair Senior - Alistair.senior@sydney.edu.au
-#' @references Nakagawa et al. 2015. 
-
+#' @references Nakagawa et al. (2015) Meta-analysis of variation: ecological and evolutionary applications and beyond. Methods in Ecology and Evolution, 6:143-152.
+#' @export
 lnVR_es<-function(sd1, sd2, n1, n2){
 	lnVR <- log(sd1 / sd2) + (1 / (2 * (n1 - 1))) - (1 / (2 * (n2 - 1)))
 	v_lnVR <- (1 / (2 * (n1 - 1))) + (1 / (2 * (n2 - 1)))
