@@ -22,7 +22,7 @@ hedge(m1, m2, sd1, sd2, n1, n2, type = c("d", "g"))
 \item{type}{Whether Hedges' d (type = "d") and biased corrected Hedges' d or Hedges' g (type = "g") is the be used.}
 }
 \description{
-Function for calculating Hedges' d or biased corrected Hedges' g.
+Function for calculating Hedges' d or biased corrected Hedges' g. m1 is subtracted from m2.
 }
 \author{
 Daniel Noble - daniel.noble@unsw.edu.au

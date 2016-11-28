@@ -62,7 +62,7 @@ es_stat <- function(m1, m2, sd1, sd2, n1, n2, p1, p2, d1, d2, n1HR, n2HR, r, nr,
 }
 	
 #' @title hedge
-#' @description Function for calculating Hedges' d or biased corrected Hedges' g. 
+#' @description Function for calculating Hedges' d or biased corrected Hedges' g. m1 is subtracted from m2.
 #' @param m1 Mean of group 1
 #' @param m2 Mean of group 2
 #' @param sd1 Standard deviation of group 1
