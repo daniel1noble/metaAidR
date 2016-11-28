@@ -4,7 +4,7 @@
 \alias{var_lnCVR}
 \title{Sampling variance for lnCVR}
 \usage{
-var_lnCVR(m1, m2, sd1, sd2, n1, n2, Equal.E.C.Corr = TRUE)
+var_lnCVR(m1, m2, sd1, sd2, n1, n2, cor, Equal.E.C.Corr = TRUE)
 }
 \arguments{
 \item{m1}{Mean of group 1}
@@ -18,6 +18,8 @@ var_lnCVR(m1, m2, sd1, sd2, n1, n2, Equal.E.C.Corr = TRUE)
 \item{n1}{Sample size of group 1}
 
 \item{n2}{Sample size of group 2}
+
+\item{cor}{Assumed correlation between mean and variance. Used when a vector of statistics of length 1 is provided.}
 
 \item{Equal.E.C.Corr}{Logical indicating whether the the correlation between mean and variance is equal in both group groups.}
 }

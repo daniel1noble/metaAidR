@@ -51,12 +51,13 @@ es_stat <- function(m1, m2, sd1, sd2, n1, n2, p1, p2, r, nr, type = c("d", "g", 
 #' @param d2 Number of events (e.g. deaths) in time interval t-1 to t for group 2. Used for type "lnHR" only.
 #' @param n1HR Number at risk for group 1 during time interval t-1 to t. Used for type "lnHR" only.
 #' @param n2HR Number at risk for group 2 during time interval t-1 to t. Used for type "lnHR" only.
-#' @param Equal.E.C.Corr Logical indicating whether the correlation between log mean and log sd are assumed to be the same (TRUE) or different (FALSE). USed only with type = "lnCVR".
+#' @param cor Assumed correlation between mean and variance. Used when a vector of statistics of length 1 is provided. Used only with type = "lnCVR".
+#' @param equal.corr Logical indicating whether the correlation between log mean and log sd are assumed to be the same (TRUE) or different (FALSE). Used only with type = "lnCVR".
 #' @param type The type specifies the specific effect statistics one wishes to calculate. Types include: "lnHR" = log hazards ratio, "lnRR" = log response ratio, "lnCVR" = log coefficient of variation ratio, "lnVR" = log variance ratio. 
 #' @return Function returns the effect size and its sampling variance in a matrix (two column, n rows). The arguments can be vectors. 
 #' @author Daniel Noble - daniel.noble@unsw.edu.au
 #' @export
-es_ratio <- function(m1, m2, sd1, sd2, n1, n2, d1, d2, n1HR, n2HR, Equal.E.C.Corr=TRUE, type = c("lnRR", "lnCVR", "lnVR", "lnHR")){
+es_ratio <- function(m1, m2, sd1, sd2, n1, n2, d1, d2, n1HR, n2HR, cor = cor, equal.corr=TRUE, type = c("lnRR", "lnCVR", "lnVR", "lnHR")){
 	if(type == "lnRR"){
 		return(lnRR_es(m1, m2, sd1, sd2, n1, n2))
 	}
@@ -71,11 +72,10 @@ es_ratio <- function(m1, m2, sd1, sd2, n1, n2, d1, d2, n1HR, n2HR, Equal.E.C.Cor
 
 	if(type == "lnCVR"){
 		lnCVR <- lnCVR_es(m1, m2, sd1, sd2, n1, n2)
-		v_lnCVR <-var_lnCVR(m1, m2, sd1, sd2, n1, n2, ...)
+		v_lnCVR <-var_lnCVR(m1, m2, sd1, sd2, n1, n2, cor = cor, Equal.E.C.Corr = equal.corr)
 		return(cbind(lnCVR, v_lnCVR))
 	}
 }
-
 
 
 #' @title hedge
@@ -198,22 +198,30 @@ lnCVR_es<-function(m1, m2, sd1, sd2, n1, n2){
 #' @param sd2 Standard deviation of group 2
 #' @param n1 Sample size of group 1
 #' @param n2 Sample size of group 2
+#' @param cor Assumed correlation between mean and variance. Used when a vector of statistics of length 1 is provided. 
 #' @param Equal.E.C.Corr Logical indicating whether the the correlation between mean and variance is equal in both group groups.
 #' @author Alistair Senior - Alistair.senior@sydney.edu.au
 #' @references Nakagawa et al. (2015) Meta-analysis of variation: ecological and evolutionary applications and beyond. Methods in Ecology and Evolution, 6:143-152.
 #' @export
-var_lnCVR<-function(m1, m2, sd1, sd2, n1, n2, Equal.E.C.Corr=TRUE){
+var_lnCVR<-function(m1, m2, sd1, sd2, n1, n2, cor, Equal.E.C.Corr=TRUE){
+	#To Do: Function depends on a vector being provided. But situations were only a single valued vector used. Need to solve correlation between log(sd) and log(mean) in these situations.
+	if(length(m1) <= 1 & length(sd1) <= 1){
+		#Assume correlation is 0.5
+		S2<- sd1^2 / (n1 * (m1^2)) + 1 / (2 * (n1 - 1)) - 2 * cor * sqrt((sd1^2 / (n1 * (m1^2))) * (1 / (2 * (n1 - 1)))) + sd2^2 / (n2 * (m2^2)) + 1 / (2 * (n2 - 1)) - 2 * cor * sqrt((sd2^2 / (n2 * (m2^2))) * (1 / (2 * (n2 - 1))))
+	}
 
-	if(Equal.E.C.Corr==TRUE){
+	if(Equal.E.C.Corr==TRUE & length(m1) > 1 & length(sd1) > 1){
 		mvcorr<-stats::cor.test(log(c(m1, m2)), log(c(sd1, sd2)))$estimate
 			
 		S2<- sd1^2 / (n1 * (m1^2)) + 1 / (2 * (n1 - 1)) - 2 * mvcorr * sqrt((sd1^2 / (n1 * (m1^2))) * (1 / (2 * (n1 - 1)))) + sd2^2 / (n2 * (m2^2)) + 1 / (2 * (n2 - 1)) - 2 * mvcorr * sqrt((sd2^2 / (n2 * (m2^2))) * (1 / (2 * (n2 - 1))))
-		}else{
+		}
+
+	if(Equal.E.C.Corr==FALSE & length(m1) > 1 & length(sd1) > 1){
 		Cmvcorr<-stats::cor.test(log(m1), log(sd1))$estimate
 		Emvcorr<-stats::cor.test(log(m2), (sd2))$estimate
 	
-		S2<- sd1^2 / (n1 * (m1^2)) + 1 / (2 * (n1 - 1)) - 2 * Cmvcorr * sqrt((sd1^2 / (n1 * (m1^2))) * (1 / (2 * (n1 - 1)))) + sd2^2 / (n2 * (m2^2)) + 1 / (2 * (n2 - 1)) - 2 * Emvcorr * sqrt((sd2^2 / (n2 * (m2^2))) * (1 / (2 * (n2 - 1))))	
-	}
+		S2<- sd1^2 / (n1 * (m1^2)) + 1 / (2 * (n1 - 1)) - 2 * Cmvcorr * sqrt((sd1^2 / (n1 * (m1^2))) * (1 / (2 * (n1 - 1)))) + sd2^2 / (n2 * (m2^2)) + 1 / (2 * (n2 - 1)) - 2 * Emvcorr * sqrt((sd2^2 / (n2 * (m2^2))) * (1 / (2 * (n2 - 1))))
+		}	
 return(S2)	
 }
 

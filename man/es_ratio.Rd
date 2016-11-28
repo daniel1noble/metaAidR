@@ -4,8 +4,8 @@
 \alias{es_ratio}
 \title{es_ratio: Function for calculating ratio-based effect size statistics}
 \usage{
-es_ratio(m1, m2, sd1, sd2, n1, n2, d1, d2, n1HR, n2HR, Equal.E.C.Corr = TRUE,
-  type = c("lnRR", "lnCVR", "lnVR", "lnHR"))
+es_ratio(m1, m2, sd1, sd2, n1, n2, d1, d2, n1HR, n2HR, cor = cor,
+  equal.corr = TRUE, type = c("lnRR", "lnCVR", "lnVR", "lnHR"))
 }
 \arguments{
 \item{m1}{Mean of group 1}
@@ -28,7 +28,9 @@ es_ratio(m1, m2, sd1, sd2, n1, n2, d1, d2, n1HR, n2HR, Equal.E.C.Corr = TRUE,
 
 \item{n2HR}{Number at risk for group 2 during time interval t-1 to t. Used for type "lnHR" only.}
 
-\item{Equal.E.C.Corr}{Logical indicating whether the correlation between log mean and log sd are assumed to be the same (TRUE) or different (FALSE). USed only with type = "lnCVR".}
+\item{cor}{Assumed correlation between mean and variance. Used when a vector of statistics of length 1 is provided. Used only with type = "lnCVR".}
+
+\item{equal.corr}{Logical indicating whether the correlation between log mean and log sd are assumed to be the same (TRUE) or different (FALSE). Used only with type = "lnCVR".}
 
 \item{type}{The type specifies the specific effect statistics one wishes to calculate. Types include: "lnHR" = log hazards ratio, "lnRR" = log response ratio, "lnCVR" = log coefficient of variation ratio, "lnVR" = log variance ratio.}
 }
