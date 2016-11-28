@@ -4,8 +4,7 @@
 \alias{var_lnCVR}
 \title{Sampling variance for lnCVR}
 \usage{
-var_lnCVR(m1, m2, sd1, sd2, n1, n2, Equal.E.C.Corr = TRUE,
-  repeated.control = FALSE, Control.IDs)
+var_lnCVR(m1, m2, sd1, sd2, n1, n2, Equal.E.C.Corr = TRUE)
 }
 \arguments{
 \item{m1}{Mean of group 1}
@@ -21,10 +20,6 @@ var_lnCVR(m1, m2, sd1, sd2, n1, n2, Equal.E.C.Corr = TRUE,
 \item{n2}{Sample size of group 2}
 
 \item{Equal.E.C.Corr}{Logical indicating whether the the correlation between mean and variance is equal in both group groups.}
-
-\item{repeated.control}{Logical indicating whether there are repeated control groups used in the data set.}
-
-\item{Control.IDs}{A vector indicating which rows share a common control}
 }
 \description{
 Function for calculating sampling variance of log coefficient of variation ratio under different assumptions about mean-variance relationships.
