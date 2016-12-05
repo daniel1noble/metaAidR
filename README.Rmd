@@ -20,7 +20,7 @@
 | ooAdjtradeoff & ooUnAdjtradeoff | Lim et al. (2014)         | Offspring size and number tradeoff meta-analysis |
 | mtor                            | Garratt et al. (2016)     | Meta-analysis of mtor                            |
 | parasites                       | Poulin (2000)             | Parasites impacting behaviour meta-analysis      |
-| plumage                         | Santos et al. (2011)      |                                                  |
+| plumage                         | Santos et al. (2011)      | Meta-analysis on dominance and plumage traits                                                 |
 | sparrows                        | Nakagawa et al. (2007)    | Sparrow meta-analysis and bib size               |
 
 For more details on each specific meta-analysis use `?` in combination with the specific dataset (e.g. `?heatshock`). This will provide meta-data details for each dataset along with its reference and a description.
