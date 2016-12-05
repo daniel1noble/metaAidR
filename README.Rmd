@@ -8,7 +8,7 @@
 
 ## **Datasets**
 
-*metaAidR* comes with a suite of different datasets which accompany the examples in the 'how-to' paper. These example datasets are used to demonstrate the functionality of *metaAidR* along with more advanced meta-analytic topics that maybe of interest to practitioners. Datasets can be queried and loaded as with normal R packages. Currently the datasets that exist are as follows:
+*metaAidR* comes with a suite of different datasets which accompany the examples in the 'how-to' paper. These example datasets are used to demonstrate the functionality of *metaAidR* along with more advanced meta-analytic topics that maybe of interest to practitioners. Datasets can be queried and loaded as with normal R packages. Currently, the datasets that exist are as follows:
 
 | Dataset                         | Reference                 | Description                                      |
 |---------------------------------|---------------------------|--------------------------------------------------|
@@ -35,11 +35,9 @@ Meta-analytic models also often exhibit unique (and common) forms of non-indepen
 
 For many situations in ecology and evolution, the absolute or magnitude of effect size is of most interest, rather than effect size estimates containing directionality (see Morrissey 2016a & b). Absolute effect size estimates follow a folded normal distribution and need to be modeled correctly to avoid bias. As such, for users interested in effect magnitude we have developed a `foldnorm` function which can apply results from normal meta-analytic models (that assume Gaussain error distributions) to generate corrected effect magnitude and credible intervals using an 'anlayse then transform' approach suggested by Morrissey (2016a).
 
-**NOTE**: While these function exist, they are still not completely functional. Additionally, not all functions have been effectively tested and so should not be used.
-
 ## **Installation**
 
-*metaAidR* is not currently on CRAN. For testing purposes only it can be downloaded through `devtools` as follows:
+*metaAidR* is not currently on CRAN. For **testing purposes only** it can be downloaded through `devtools` as follows:
 
 ```
 install.packages("devtools")
@@ -47,6 +45,8 @@ library(devtools)
 install_github("daniel1noble/metaAidR")
 ```
 `devtools` will install all the relevant documentation and data associated with the package. 
+
+**NOTE**: While functions exist, they are still not completely functional. Additionally, not all functions have been effectively tested and so should not be used or used with extreme caution!
 
 ## **References**
 
