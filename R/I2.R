@@ -11,34 +11,47 @@
 
 I2 <- function(model, v, re.list = list(phylo = "animal", spp = "species", stdy = "study")){
 	
-	if(class(model) != "MCMCglmm"){
-	stop("The model object is not of class 'MCMCglmm'")
+	if(class(model) != "MCMCglmm" & class(model) != "metafor"){
+		stop("The model object is not of class 'MCMCglmm' or 'metafor'")
 	}
 
-	#Calculate measurement error
-	  wi <- 1/v  #weight
-	Vw <- sum((wi) * (length(wi) - 1))  / (((sum(wi)^2) - sum((wi)^2)))
-	
-	# Get posterior distribution 
-	post <- model$VCV
+	if(class(model) == "MCMCglmm" ){
+		#Calculate measurement error
+		  wi <- 1/v  #weight
+		Vw <- sum((wi) * (length(wi) - 1))  / (((sum(wi)^2) - sum((wi)^2)))
+		
+		# Get posterior distribution 
+		post <- model$VCV
 
-	#Extract names of re.list. 
-	phylo <- post[,grep(re.list$phylo, colnames(post))]
-	   spp  <- post[,grep(re.list$spp, colnames(post))]
-	   stdy <- post[,grep(re.list$stdy, colnames(post))]
-	        r <- post[,grep("units", colnames(post))]
- 
-	# Calculate the proportion of heterogeneity explained by variance components
-	I2.phylo <- (phylo) / (phylo + spp + stdy + r)
-	  I2.stdy <- (stdy) / (phylo + spp + stdy + r + Vw)
-	   I2.spp <- (spp) / (phylo + spp + stdy + r + Vw)
-	        I2.t <- (phylo + spp + stdy + r) / (phylo + spp + stdy + r + Vw)
+		#Extract names of re.list.
+		phylo <- post[,grep(re.list$phylo, colnames(post))]
+		   spp  <- post[,grep(re.list$spp, colnames(post))]
+		   stdy <- post[,grep(re.list$stdy, colnames(post))]
+		        r <- post[,grep("units", colnames(post))]
 
-	tmpMatrix <- Matrix::cBind(I2.phylo, I2.stdy, I2.spp, I2.t)
-	        mode <- MCMCglmm::posterior.mode(coda::as.mcmc(tmpMatrix))
-	             CI <- coda::HPDinterval(coda::as.mcmc(tmpMatrix))
+		# Calculate the proportion of heterogeneity explained by variance components
+		I2.phylo <- (phylo) / (phylo + spp + stdy + r)
+		I2.stdy <- (stdy) / (phylo + spp + stdy + r + Vw)
+		I2.spp <- (spp) / (phylo + spp + stdy + r + Vw)
+		I2.t <- (phylo + spp + stdy + r) / (phylo + spp + stdy + r + Vw)
 
-	p.mcmc = ifelse(round(CI[,"lower"], digits =3) != 0, "*", "")
-	
-  return(data.frame(post.mode = round(mode, digits = 3), CI = round(CI, digits = 3), p.mcmc = p.mcmc))
+		tmpMatrix <- Matrix::cBind(I2.phylo, I2.stdy, I2.spp, I2.t)
+		        mode <- MCMCglmm::posterior.mode(coda::as.mcmc(tmpMatrix))
+		             CI <- coda::HPDinterval(coda::as.mcmc(tmpMatrix))
+
+		p.mcmc = ifelse(round(CI[,"lower"], digits =3) != 0, "*", "")
+		
+	  return(data.frame(post.mode = round(mode, digits = 3), CI = round(CI, digits = 3), p.mcmc = p.mcmc))
+  	}
+
+  	if(class(model) == "metafor"){
+  		 wi <- 1/v  #weight
+		Vw <- sum((wi) * (length(wi) - 1))  / (((sum(wi)^2) - sum((wi)^2)))
+
+  		b <- model$b
+  		sigma2 <- matrix(model$sigma2, nrow = 1, ncol = 2)
+  		colnames(sigma2) <- model$s.names
+
+  	}
+
 }
