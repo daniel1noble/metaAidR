@@ -14,6 +14,11 @@ In addition to functions for calculating effect size statistics, *metaAidR* also
 
 Meta-analytic models also often exhibit unique (and common) forms of non-independence. To provide users with useful functions to calculate correlation / (co)variance matrices *metaAidR* also provides a `coMatrix` function that allows the user to generate covariance matrices based on shared control measurements, phylogenetic correlation matrices or within-study/shared trait measurements matrices that can be used as input matrices for common meta-analytic models implemented in both `metafor` and `MCMCglmm`. 
 
-Many situations in ecology and evolution, absolute or magnitude of effect size is of most interested rather than effect size estimates with directionality (see Morrissey 2016). However, effect magnitude needs to be modeled correctly to avoid bias. As such, for users interested in effect magnitude we have developed a `foldnorm` function which can apply results from normal meta-analytic models (that assume Gaussain error distributions) to generate corrected effect magnitude and credible intervals using an 'anlayse then transform' approach suggested by Morrissey (2016)
+For many situations in ecology and evolution, the absolute or magnitude of effect size is of most interest, rather than effect size estimates containing directionality (see Morrissey 2016a & b). Absolute effect size estimates follow a folded normal distribution and need to be modeled correctly to avoid bias. As such, for users interested in effect magnitude we have developed a `foldnorm` function which can apply results from normal meta-analytic models (that assume Gaussain error distributions) to generate corrected effect magnitude and credible intervals using an 'anlayse then transform' approach suggested by Morrissey (2016a).
 
-**NOTE**: These are planned functions and have not yet been effectively tested or optimized.
+**NOTE**: While these function exist, they are still not completely functional. Additionally, not all functions have been effectively tested and so should not be used.
+
+## **References**
+
+Morrisey, M.B. 2016a. Meta-analysis of magnitudes, differences and variation in evolutionary parameters. Journal of Evolutionary Biology, 29:1882-1904
+Morrisey, M.B. 2016b. Rejoinder: Further considerations for meta-analysis of transformed quantities such as absolute values. Journal of Evolutionary Biology, 29:1922-1931
