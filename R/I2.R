@@ -46,6 +46,7 @@ I2 <- function(model, v, sims = 1500, re.list = list(phylo = "animal", spp = "sp
   	}
 
   	if(class(model) == "metafor"){
+  		#Monte Carlo Simulations
   		 wi <- 1/v  #weight
 		Vw <- sum((wi) * (length(wi) - 1))  / (((sum(wi)^2) - sum((wi)^2)))
 
@@ -57,8 +58,12 @@ I2 <- function(model, v, sims = 1500, re.list = list(phylo = "animal", spp = "sp
   		#For each variance estimate simulate data
   		Sims <- lapply(sigma2, function(x) simulate(x, sims = 1000))
 		names(Sims) <- colnames(sigma2) 
+		lapply(Sims, function(x)quantile(x,  c(0.025, 0.975)))
 
-
+		phylo <- post[,grep(re.list$phylo, colnames(sigma2))]
+		   spp  <- post[,grep(re.list$spp, colnames(sigma2))]
+		   stdy <- post[,grep(re.list$stdy, colnames(sigma2))]
+		        r <- post[,grep("units", colnames(sigma2))]
 
   	}
 

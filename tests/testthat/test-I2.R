@@ -28,6 +28,4 @@ test_that("Check that output is correct", {
 	metaMCMC <- MCMCglmm(es~1, random = ~spp + stdy, mev = V, data = data)
 
 	het <- I2(metaMCMC, v = data$V, re.list=list(phylo = "animal", spp = "spp", stdy = "stdy"))
-
-	expect_equal(x, 5)
 })
