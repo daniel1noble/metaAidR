@@ -6,25 +6,18 @@
 
 *metaAidR* contains a set of functions that allows users to make use of both simple (i.e. calculation of effect size statistics) along with more advanced (i.e. generate correlation/(co)variance matrices for non-independence, calculate I^2 statistics) formal meta-analytic procedures. This package will accompany a 'how-to' paper and is under active development. 
 
-\begin{table}[]
-\centering
-\caption{My caption}
-\label{my-label}
-\begin{tabular}{lll}
-Dataset                          & Reference                  & Description                                      \\
-agg\_epp\_wpp \& multi\_epp\_wpp & Cleasby \& Nakagawa (2012) & Extra-pair and within pair multiple paternity    \\
-birdegg\_ssd.5 \& birdegg\_ssd.8 & Rutkowski et al. (2014)    & Egg sexual size dimorphism                       \\
-heatshock                        & Lagisz et al. (2013)       & Heatshock protein meta-analysis                  \\
-matdiet                          & Besson et al. (2016)       & Maternal diet and soping styles meta-analysis    \\
-moNumtradeoff \& moSizetradeoff  & Lim et al. (2014)          & Mother offspring size and number tradeoff        \\
-ooAdjtradeoff \& ooUnAdjtradeoff & Lim et al. (2014)          & Offspring size and number tradeoff meta-analysis \\
-mtor                             & Garratt et al. (2016)      & Meta-analysis of mtor                            \\
-parasites                        & Poulin (2000)              & Parasites impacting behaviour meta-analysis      \\
-plumage                          & Santos et al. (2011)       &                                                  \\
-sparrows                         & Nakagawa et al. (2007)     & Sparrow meta-analysis and bib size              
-\end{tabular}
-\end{table}
-
+| Dataset                         | Reference                 | Description                                      |
+|---------------------------------|---------------------------|--------------------------------------------------|
+| agg_epp_wpp & multi_epp_wpp     | Cleasby & Nakagawa (2012) | Extra-pair and within pair multiple paternity    |
+| birdegg_ssd.5 & birdegg_ssd.8   | Rutkowski et al. (2014)   | Egg sexual size dimorphism                       |
+| heatshock                       | Lagisz et al. (2013)      | Heatshock protein meta-analysis                  |
+| matdiet                         | Besson et al. (2016)      | Maternal diet and soping styles meta-analysis    |
+| moNumtradeoff & moSizetradeoff  | Lim et al. (2014)         | Mother offspring size and number tradeoff        |
+| ooAdjtradeoff & ooUnAdjtradeoff | Lim et al. (2014)         | Offspring size and number tradeoff meta-analysis |
+| mtor                            | Garratt et al. (2016)     | Meta-analysis of mtor                            |
+| parasites                       | Poulin (2000)             | Parasites impacting behaviour meta-analysis      |
+| plumage                         | Santos et al. (2011)      |                                                  |
+| sparrows                        | Nakagawa et al. (2007)    | Sparrow meta-analysis and bib size               |
 
 ## **Datasets**
 
