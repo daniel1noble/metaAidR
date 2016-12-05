@@ -3,13 +3,14 @@
 #' @description Function for calculating commonly reported  I^2 measures from MCMCglmm model objects.  See Nakagawa and Santos (2012) for detailed explanation on the various types of I^2
 #' @param model The MCMCglmm model object
 #' @param v The vector of sampling variance for each effect size. 
+#' @param sims The number of simulations used for calculating distribution for metafor objects.
 #' @param re.list A list of variance estimates one wishes to derive I^2 estimates for. These could include phylogenetic heritability (H^2), species ($I^{2}_{sp}$) and study ($I^{2}_{stdy}$) or often called ($tau^{2}$). At the moment only three types are provided: phylogenetic (phylo), species (spp) and study (stdy). The names of your specific variance component do not matter, but these names should be specified in the re.list argument in the respective argument.
 #' @return A data.frame containing the relevant I^2 measures along with the 95 percent credible intervals for each element listed in the re.list argument 
 #' @author Daniel Noble - daniel.noble@unsw.edu.au
 #' @references Nakagawa, S. and Santos, E.S.A. (2012) Methodological issues and advances in biological meta-analysis. Evolutionary Ecology, 26:1253-1274.
 #' @export
 
-I2 <- function(model, v, re.list = list(phylo = "animal", spp = "species", stdy = "study")){
+I2 <- function(model, v, sims = 1500, re.list = list(phylo = "animal", spp = "species", stdy = "study")){
 	
 	if(class(model) != "MCMCglmm" & class(model) != "metafor"){
 		stop("The model object is not of class 'MCMCglmm' or 'metafor'")
@@ -48,10 +49,31 @@ I2 <- function(model, v, re.list = list(phylo = "animal", spp = "species", stdy 
   		 wi <- 1/v  #weight
 		Vw <- sum((wi) * (length(wi) - 1))  / (((sum(wi)^2) - sum((wi)^2)))
 
-  		b <- model$b
+		# From metafor extract the important statistics
+  		         b <- model$b
   		sigma2 <- matrix(model$sigma2, nrow = 1, ncol = 2)
   		colnames(sigma2) <- model$s.names
+
+  		#For each variance estimate simulate data
+  		Sims <- lapply(sigma2, function(x) simulate(x, sims = 1000))
+		names(Sims) <- colnames(sigma2) 
+
+
 
   	}
 
 }
+
+
+#' @title Parametric simulation 
+#' @description Function for calculating I2 estimates using parametric simulations of model estimates taken from metafor. Note that the effectiveness of these simulations depends on the accuracy of model variance estimates.
+#' @param estimate The estimate (i.e. variance) from a metafor model
+#' @param sims The number of simulations 
+#' @author Daniel Noble - daniel.noble@unsw.edu.au
+#' @export
+simulate <- function(estimate, sims){
+  			tmp <- data.frame(num = rep(1:sims, each = 1000), y = rnorm(1000*sims, 0, sqrt(estimate)))
+  			splt <- split(tmp, tmp$num)
+  			Var <- unlist(lapply(splt, function(x) var(x$y)))
+  			return(Var)
+  		}
