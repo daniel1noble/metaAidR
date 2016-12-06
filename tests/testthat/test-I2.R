@@ -7,10 +7,10 @@ test_that("Check that output is correct", {
 	treeSim <- rtree(n = 30)
 	
 	#Simulate some meta-analytic data
-	set.seed(69)
-	n = 1000
-	spN = 100
-	stdyN =50 
+		set.seed(123)
+		n = 1000
+		spN = 100
+		stdyN =50 
 
 	       V <- rgamma(n, shape = 1, rate = 10)
 	 muEs <- rnorm(n, 3, sqrt(V))
@@ -19,10 +19,13 @@ test_that("Check that output is correct", {
 	         e <- rnorm(n, 0, 1)
 
 	es <- muEs + spp + stdy + e
-	data <- data.frame(es, spp = as.factor(spp), stdy = as.factor(stdy), V)
+	data <- data.frame(es, spp = as.factor(spp), stdy = as.factor(stdy), V, obs = 1:length(es))
 
-	# Run in metafor
-	metaFor <- rma.mv(es, V, random = list(~1|spp, ~1|stdy), data = data)
+	# Run in metafor. Below model does not estimate residual variance
+	metaFor <- rma.mv(es, V, random = list(~1|spp, ~1|stdy), struct="UN", data = data)
+
+	#This model estimates a residual variance
+	metaFor <- rma.mv(es, V, random = list(~1|spp, ~1|stdy, ~1|obs), struct="UN",data = data)
 
 	#Run in MCMCglmm
 	metaMCMC <- MCMCglmm(es~1, random = ~spp + stdy, mev = V, data = data)

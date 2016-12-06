@@ -50,8 +50,13 @@ I2 <- function(model, v, sims = 1500, re.list = list(phylo = "animal", spp = "sp
   		 wi <- 1/v  #weight
 		Vw <- sum((wi) * (length(wi) - 1))  / (((sum(wi)^2) - sum((wi)^2)))
 
+		# General form of I2 for meta-regression; From http://www.metafor-project.org/doku.php/tips:i2_multilevel_multivariate
+
+		W <- diag(1/v)
+		X <- model.matrix(model)
+		P <- W %*% X %*% solve(t(X) %*% W %*% X) %*% t(X) %*% W # Not clear what P is estimating....if residual variance its way off from what is should be, 1. I believe that this is the amount of variance explained by the fixed effects. We could estimate this by including an observational random effect and estimating residual variance, but user would need to do this during model fitting. 
+
 		# From metafor extract the important statistics
-  		         b <- model$b
   		sigma2 <- matrix(model$sigma2, nrow = 1, ncol = 2)
   		colnames(sigma2) <- model$s.names
 
