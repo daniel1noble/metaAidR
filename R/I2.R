@@ -83,8 +83,9 @@ I2 <- function(model, v, sims = 1500, re.list = list(phylo = "animal", spp = "sp
 		            	tmpMatrix <- Matrix::cBind(I2_re[,-match("obs", colnames(I2_re))], phylo = I2_phylo, total = I2_total)
 		}
 
-		      I_CI <- plyr::ldply(lapply(tmpMatrix, function(x) stats::quantile(x, c(0.025, 0.975), na.rm = TRUE)))
-		I2_table <- round_df(Matrix::cBind(Est = colMeans(tmpMatrix), I_CI[,-1]), digits = 4)
+			CI <- lapply(tmpMatrix, function(x) stats::quantile(x, c(0.025, 0.975), na.rm = TRUE))
+		      I_CI <- as.data.frame(do.call(rbind, CI))
+		I2_table <- round_df(Matrix::cBind(Est = colMeans(tmpMatrix), I_CI ), digits = 4)
 
 	return(I2_table)
   	}
