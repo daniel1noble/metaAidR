@@ -2,7 +2,7 @@ context("Tests I2 function")
 
 test_that("Check that output is correct", {
 	library(metafor)
-	#library(MCMCglmm)
+	library(MCMCglmm)
 	
 	#Simulate some meta-analytic data
 		set.seed(123)
@@ -31,16 +31,16 @@ test_that("Check that output is correct", {
 	metaFor <- metafor::rma.mv(es, V, random = list(~1|spp, ~1|stdy, ~1|obs), struct="UN",data = data)
 
 	#Run in MCMCglmm
-	#metaMCMC <- MCMCglmm::MCMCglmm(es~1, random = ~spp + stdy, mev = V, data = data)
+	metaMCMC <- MCMCglmm::MCMCglmm(es~1, random = ~spp + stdy, mev = V, data = data)
 
 	MetaF <- I2(metaFor, v = data$V, re.list=list(spp = "spp", stdy = "stdy"))
-	#MCMC <- I2(metaMCMC, v = data$V, re.list=list(spp = "spp", stdy = "stdy"))
+	MCMC <- I2(metaMCMC, v = data$V, re.list=list(spp = "spp", stdy = "stdy"))
 
 	expect_equal(as.numeric(MetaF[rownames(MetaF) == "spp",][1]) ,  I2spp, tolerance = 0.005, info = "faildMetaspp")
 	expect_equal(as.numeric(MetaF[rownames(MetaF) == "stdy",][1]) ,  I2st, tolerance = 0.05, info = "faildMetastudy")
 	expect_equal(as.numeric(MetaF[rownames(MetaF) == "total",][1]) ,  I2T, tolerance = 0.05, info = "faildMetatot")
 
-	#expect_equal(as.numeric(MCMC[rownames(MCMC) == "spp",][1]) ,  I2spp, tolerance = 0.005, info = "faildMCspp")
-	#expect_equal(as.numeric(MCMC[rownames(MCMC) == "stdy",][1]) ,  I2st, tolerance = 0.05, info = "faildMCstudy")
-	#expect_equal(as.numeric(MCMC[rownames(MCMC) == "total",][1]) ,  I2T, tolerance = 0.05, info = "faildMCTot")
+	expect_equal(as.numeric(MCMC[rownames(MCMC) == "spp",][1]) ,  I2spp, tolerance = 0.005, info = "faildMCspp")
+	expect_equal(as.numeric(MCMC[rownames(MCMC) == "stdy",][1]) ,  I2st, tolerance = 0.05, info = "faildMCstudy")
+	expect_equal(as.numeric(MCMC[rownames(MCMC) == "total",][1]) ,  I2T, tolerance = 0.05, info = "faildMCTot")
 })
