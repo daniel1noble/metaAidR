@@ -14,7 +14,7 @@ LazyData: true
 Imports:
     MCMCglmm,
     metafor,
-    plyr,
+    dplyr,
     coda,
     stats,
     Matrix
