@@ -4,20 +4,19 @@
 \alias{I2}
 \title{I^2 Function}
 \usage{
-I2(model, v, sims = 1500, re.list = list(phylo = "animal", spp = "species",
-  stdy = "study"))
+I2(model, v, sims = 1500, phylo = FALSE)
 }
 \arguments{
-\item{model}{The MCMCglmm model object}
+\item{model}{The MCMCglmm or metafor model object. Note that if using a metafor model object an observation level random effect must be used to calculate the residual variance. This should be input as "~1|obs" in the random effect list.}
 
 \item{v}{The vector of sampling variance for each effect size.}
 
 \item{sims}{The number of simulations used for calculating distribution for metafor objects.}
 
-\item{re.list}{A list of variance estimates one wishes to derive I^2 estimates for. These could include phylogenetic heritability (H^2), species ($I^{2}_{sp}$) and study ($I^{2}_{stdy}$) or often called ($tau^{2}$). At the moment only three types are provided: phylogenetic (phylo), species (spp) and study (stdy). The names of your specific variance component do not matter, but these names should be specified in the re.list argument in the respective argument.}
+\item{phylo}{The name of the phylogenetic random effect. Defaults to FALSE meaning that no phylogenetic heritability is calculated.}
 }
 \value{
-A data.frame containing the relevant I^2 measures along with the 95 percent credible intervals for each element listed in the re.list argument
+A data.frame containing the relevant I^2 measures along with the 95 percent credible intervals.
 }
 \description{
 Function for calculating commonly reported  I^2 measures from MCMCglmm model objects.  See Nakagawa and Santos (2012) for detailed explanation on the various types of I^2

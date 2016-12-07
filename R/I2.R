@@ -1,16 +1,16 @@
 
 #' @title I^2 Function 
 #' @description Function for calculating commonly reported  I^2 measures from MCMCglmm model objects.  See Nakagawa and Santos (2012) for detailed explanation on the various types of I^2
-#' @param model The MCMCglmm model object
+#' @param model The MCMCglmm or metafor model object. Note that if using a metafor model object an observation level random effect must be used to calculate the residual variance. This should be input as "~1|obs" in the random effect list. 
 #' @param v The vector of sampling variance for each effect size. 
 #' @param sims The number of simulations used for calculating distribution for metafor objects.
-#' @param re.list A list of variance estimates one wishes to derive I^2 estimates for. These could include phylogenetic heritability (H^2), species ($I^{2}_{sp}$) and study ($I^{2}_{stdy}$) or often called ($tau^{2}$). At the moment only three types are provided: phylogenetic (phylo), species (spp) and study (stdy). The names of your specific variance component do not matter, but these names should be specified in the re.list argument in the respective argument.
-#' @return A data.frame containing the relevant I^2 measures along with the 95 percent credible intervals for each element listed in the re.list argument 
+#' @param phylo The name of the phylogenetic random effect. Defaults to FALSE meaning that no phylogenetic heritability is calculated.
+#' @return A data.frame containing the relevant I^2 measures along with the 95 percent credible intervals.
 #' @author Daniel Noble - daniel.noble@unsw.edu.au
 #' @references Nakagawa, S. and Santos, E.S.A. (2012) Methodological issues and advances in biological meta-analysis. Evolutionary Ecology, 26:1253-1274.
 #' @export
 
-I2 <- function(model, v, sims = 1500, re.list = list(phylo = "animal", spp = "species", stdy = "study")){
+I2 <- function(model, v, sims = 1500, phylo = FALSE){
 	
 	if(class(model) != "MCMCglmm" & class(model) != "rma.mv" & class(model) != "rma"){
 		stop("The model object is not of class 'MCMCglmm' or 'metafor'")
@@ -30,11 +30,11 @@ I2 <- function(model, v, sims = 1500, re.list = list(phylo = "animal", spp = "sp
 		# For each variance component divide by the total variance. Note this needs to be fixed for phylo, but does deal with variable random effects.
 		  I2_re <- post / VT
 
-		  if("phylo" %in% names(re.list)){
+		if(phylo == FALSE){
+			I2_phylo <- FALSE
+		}else{
 		  	I2_phylo <- post[,grep(re.list$phylo), colnames(sigma2)] / Vt
-		   }else{
-		  	I2_phylo <- FALSE
-		  }
+		  	}
 
 		 I2_total  <- Vt / VT
 		
@@ -48,7 +48,7 @@ I2 <- function(model, v, sims = 1500, re.list = list(phylo = "animal", spp = "sp
 		   CI <- coda::HPDinterval(coda::as.mcmc(tmpMatrix))
 		    colnames(CI) <- c("2.5% CI", "97.5% CI")
 
-		    Est_Table <- Matrix::cBind(Est. = mode, CI)
+		    Est_Table <- Matrix::cBind(I2_Est. = mode[-match("units", names(mode))], CI[-match("units", rownames(CI)),])
 	return(round_df(Est_Table, digits = 4))
   	}
 
@@ -69,10 +69,10 @@ I2 <- function(model, v, sims = 1500, re.list = list(phylo = "animal", spp = "sp
 		# For each variance component divide by the total variance. Note this needs to be fixed for phylo, but does deal with variable random effects.
 		  I2_re       <- Sims / VT
 
-		  if("phylo" %in% names(re.list)){
-		  	I2_phylo <- Sims[,grep(re.list$phylo), colnames(sigma2)] / Vt
-		   }else{
+		  if(phylo == FALSE){
 		  	I2_phylo <- FALSE
+		   }else{
+		  	I2_phylo <- Sims[,grep(re.list$phylo), colnames(sigma2)] / Vt
 		  }
 
 		  I2_total   <- Vt / VT
@@ -85,9 +85,10 @@ I2 <- function(model, v, sims = 1500, re.list = list(phylo = "animal", spp = "sp
 
 			CI <- lapply(tmpMatrix, function(x) stats::quantile(x, c(0.025, 0.975), na.rm = TRUE))
 		      I_CI <- as.data.frame(do.call(rbind, CI))
-		I2_table <- round_df(Matrix::cBind(Est = colMeans(tmpMatrix), I_CI ), digits = 4)
+		       colnames(I_CI) <- c("2.5% CI", "97.5% CI")
+		I2_table <- Matrix::cBind(I2_Est. = colMeans(tmpMatrix), I_CI )
 
-	return(I2_table)
+	return(round_df(I2_table, digits = 4))
   	}
 
 }
