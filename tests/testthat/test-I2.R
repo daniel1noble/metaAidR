@@ -4,7 +4,6 @@ test_that("Check that output is correct", {
 	library(phytools)
 	library(metafor)
 	library(MCMCglmm)
-	treeSim <- rtree(n = 30)
 	
 	#Simulate some meta-analytic data
 		set.seed(123)
@@ -20,9 +19,6 @@ test_that("Check that output is correct", {
 
 	es <- muEs + spp + stdy + e
 	data <- data.frame(es, spp = as.factor(spp), stdy = as.factor(stdy), V, obs = 1:length(es))
-
-	# Run in metafor. Below model does not estimate residual variance
-	metaFor <- rma.mv(es, V, random = list(~1|spp, ~1|stdy), struct="UN", data = data)
 
 	#This model estimates a residual variance
 	metaFor <- rma.mv(es, V, random = list(~1|spp, ~1|stdy, ~1|obs), struct="UN",data = data)

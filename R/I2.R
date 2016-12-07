@@ -54,21 +54,19 @@ I2 <- function(model, v, sims = 1500, re.list = list(phylo = "animal", spp = "sp
 
 		W <- diag(1/v)
 		X <- model.matrix(model)
-		P <- W %*% X %*% solve(t(X) %*% W %*% X) %*% t(X) %*% W # Not clear what P is estimating....if residual variance its way off from what is should be, 1. I believe that this is the amount of variance explained by the fixed effects. We could estimate this by including an observational random effect and estimating residual variance, but user would need to do this during model fitting. 
+		P <- W %*% X %*% solve(t(X) %*% W %*% X) %*% t(X) %*% W # Not clear what P is estimating....if residual variance its way off from what is should be, 1. I believe that this is the amount of variance explained by the fixed effects. We could estimate this by including an observational random effect and estimating residual variance, but user would need to do this during model fitting. Turns out that this appears to be both sampling variance and the fixed effect variance!
 
 		# From metafor extract the important statistics
-  		sigma2 <- matrix(model$sigma2, nrow = 1, ncol = 2)
+  		sigma2 <- matrix(model$sigma2, nrow = 1, ncol = length(model$sigma2))
   		colnames(sigma2) <- model$s.names
 
   		#For each variance estimate simulate data
-  		Sims <- lapply(sigma2, function(x) simulate(x, sims = 1000))
-		names(Sims) <- colnames(sigma2) 
-		lapply(Sims, function(x)quantile(x,  c(0.025, 0.975)))
-
-		phylo <- post[,grep(re.list$phylo, colnames(sigma2))]
-		   spp  <- post[,grep(re.list$spp, colnames(sigma2))]
-		   stdy <- post[,grep(re.list$stdy, colnames(sigma2))]
-		        r <- post[,grep("units", colnames(sigma2))]
+  		Sims <- as.data.frame(sapply(sigma2, function(x) simulate(x, sims = 1000)))
+		colnames(Sims) <- colnames(sigma2) 
+		Vt <- rowSums(cBind(Sims, Vw))
+		
+		I2_MC <- Sims / Vt
+		I_CI <- ldply(lapply(I2_MC, function(x) quantile(x, c(0.025, 0.975))))
 
   	}
 
@@ -81,9 +79,9 @@ I2 <- function(model, v, sims = 1500, re.list = list(phylo = "animal", spp = "sp
 #' @param sims The number of simulations 
 #' @author Daniel Noble - daniel.noble@unsw.edu.au
 #' @export
-simulate <- function(estimate, sims){
-  			tmp <- data.frame(num = rep(1:sims, each = 1000), y = rnorm(1000*sims, 0, sqrt(estimate)))
-  			splt <- split(tmp, tmp$num)
-  			Var <- unlist(lapply(splt, function(x) var(x$y)))
-  			return(Var)
-  		}
+  simulate <- function(estimate, sims){
+  		set.seed(07)
+  		tmp <- data.frame(num = rep(1:sims, each = 1000), y = rnorm(1000*sims, 0, sqrt(estimate)))
+  		Var <- plyr::ddply(tmp, .(num), summarise, var = var(y))
+  		return(as.numeric(Var$var))
+  	}
