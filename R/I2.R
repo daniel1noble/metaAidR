@@ -12,62 +12,81 @@
 
 I2 <- function(model, v, sims = 1500, re.list = list(phylo = "animal", spp = "species", stdy = "study")){
 	
-	if(class(model) != "MCMCglmm" & class(model) != "metafor"){
+	if(class(model) != "MCMCglmm" & class(model) != "rma.mv" & class(model) != "rma"){
 		stop("The model object is not of class 'MCMCglmm' or 'metafor'")
-	}
+		}
+
+		wi <- 1/v  #weight
+		Vw <- sum((wi) * (length(wi) - 1))  / (((sum(wi)^2) - sum((wi)^2)))
 
 	if(class(model) == "MCMCglmm" ){
-		#Calculate measurement error
-		  wi <- 1/v  #weight
-		Vw <- sum((wi) * (length(wi) - 1))  / (((sum(wi)^2) - sum((wi)^2)))
-		
 		# Get posterior distribution 
-		post <- model$VCV
+		post <- model$VCV[,-match(c("sqrt(mev):sqrt(mev).meta"), colnames(model$VCV))]
 
-		#Extract names of re.list.
-		phylo <- post[,grep(re.list$phylo, colnames(post))]
-		   spp  <- post[,grep(re.list$spp, colnames(post))]
-		   stdy <- post[,grep(re.list$stdy, colnames(post))]
-		        r <- post[,grep("units", colnames(post))]
-
-		# Calculate the proportion of heterogeneity explained by variance components
-		I2.phylo <- (phylo) / (phylo + spp + stdy + r)
-		I2.stdy <- (stdy) / (phylo + spp + stdy + r + Vw)
-		I2.spp <- (spp) / (phylo + spp + stdy + r + Vw)
-		I2.t <- (phylo + spp + stdy + r) / (phylo + spp + stdy + r + Vw)
-
-		tmpMatrix <- Matrix::cBind(I2.phylo, I2.stdy, I2.spp, I2.t)
-		        mode <- MCMCglmm::posterior.mode(coda::as.mcmc(tmpMatrix))
-		             CI <- coda::HPDinterval(coda::as.mcmc(tmpMatrix))
-
-		p.mcmc = ifelse(round(CI[,"lower"], digits =3) != 0, "*", "")
+		#Calculate total variance
+		         VT <- rowSums(Matrix::cBind(post, Vw))
+		          Vt <- rowSums(post)  # remove Vw
 		
-	  return(data.frame(post.mode = round(mode, digits = 3), CI = round(CI, digits = 3), p.mcmc = p.mcmc))
+		# For each variance component divide by the total variance. Note this needs to be fixed for phylo, but does deal with variable random effects.
+		  I2_re <- post / VT
+
+		  if("phylo" %in% names(re.list)){
+		  	I2_phylo <- post[,grep(re.list$phylo), colnames(sigma2)] / Vt
+		   }else{
+		  	I2_phylo <- FALSE
+		  }
+
+		 I2_total  <- Vt / VT
+		
+		if(I2_phylo == FALSE){
+			tmpMatrix <- Matrix::cBind(I2_re, total = I2_total)
+		} else{
+		            	tmpMatrix <- Matrix::cBind(I2_re, I2_phylo, total = I2_total)
+		}
+		   
+		   mode <- MCMCglmm::posterior.mode(coda::as.mcmc(tmpMatrix))
+		   CI <- coda::HPDinterval(coda::as.mcmc(tmpMatrix))
+		    colnames(CI) <- c("2.5% CI", "97.5% CI")
+
+		    Est_Table <- Matrix::cBind(Est. = mode, CI)
+	return(round_df(Est_Table, digits = 4))
   	}
 
-  	if(class(model) == "metafor"){
+  	if(class(model) ==  "rma.mv" | class(model) ==  "rma"){
   		#Monte Carlo Simulations
-  		 wi <- 1/v  #weight
-		Vw <- sum((wi) * (length(wi) - 1))  / (((sum(wi)^2) - sum((wi)^2)))
-
-		# General form of I2 for meta-regression; From http://www.metafor-project.org/doku.php/tips:i2_multilevel_multivariate
-
-		W <- diag(1/v)
-		X <- model.matrix(model)
-		P <- W %*% X %*% solve(t(X) %*% W %*% X) %*% t(X) %*% W # Not clear what P is estimating....if residual variance its way off from what is should be, 1. I believe that this is the amount of variance explained by the fixed effects. We could estimate this by including an observational random effect and estimating residual variance, but user would need to do this during model fitting. Turns out that this appears to be both sampling variance and the fixed effect variance!
-
 		# From metafor extract the important statistics
   		sigma2 <- matrix(model$sigma2, nrow = 1, ncol = length(model$sigma2))
   		colnames(sigma2) <- model$s.names
 
-  		#For each variance estimate simulate data
-  		Sims <- as.data.frame(sapply(sigma2, function(x) simulate(x, sims = 1000)))
+  		#For each variance estimate use Monte Carlo simulation of data
+  		Sims <- data.frame(sapply(sigma2, function(x) simMonteCarlo(x, sims = 1000)))
 		colnames(Sims) <- colnames(sigma2) 
-		Vt <- rowSums(cBind(Sims, Vw))
 		
-		I2_MC <- Sims / Vt
-		I_CI <- ldply(lapply(I2_MC, function(x) quantile(x, c(0.025, 0.975))))
+		#Calculate total variance
+		         VT <- rowSums(Matrix::cBind(Sims, Vw))
+		          Vt <- rowSums(Sims)  # remove Vw
+		
+		# For each variance component divide by the total variance. Note this needs to be fixed for phylo, but does deal with variable random effects.
+		  I2_re       <- Sims / VT
 
+		  if("phylo" %in% names(re.list)){
+		  	I2_phylo <- Sims[,grep(re.list$phylo), colnames(sigma2)] / Vt
+		   }else{
+		  	I2_phylo <- FALSE
+		  }
+
+		  I2_total   <- Vt / VT
+
+		  if(I2_phylo == FALSE){
+			tmpMatrix <- Matrix::cBind(I2_re[,-match("obs", colnames(I2_re))], total = I2_total)
+		} else{
+		            	tmpMatrix <- Matrix::cBind(I2_re[,-match("obs", colnames(I2_re))], phylo = I2_phylo, total = I2_total)
+		}
+
+		      I_CI <- plyr::ldply(lapply(tmpMatrix, function(x) stats::quantile(x, c(0.025, 0.975), na.rm = TRUE)))
+		I2_table <- round_df(Matrix::cBind(Est = colMeans(tmpMatrix), I_CI[,-1]), digits = 4)
+
+	return(I2_table)
   	}
 
 }
@@ -79,9 +98,17 @@ I2 <- function(model, v, sims = 1500, re.list = list(phylo = "animal", spp = "sp
 #' @param sims The number of simulations 
 #' @author Daniel Noble - daniel.noble@unsw.edu.au
 #' @export
-  simulate <- function(estimate, sims){
+  simMonteCarlo <- function(estimate, sims){
   		set.seed(07)
-  		tmp <- data.frame(num = rep(1:sims, each = 1000), y = rnorm(1000*sims, 0, sqrt(estimate)))
-  		Var <- plyr::ddply(tmp, .(num), summarise, var = var(y))
+  		tmp <- data.frame(num = rep(1:sims, each = 5000), y = stats::rnorm(5000*sims, 0, sqrt(estimate)))
+  		Var <- dplyr::summarise(dplyr::group_by(tmp, num), var = stats::var(y))
   		return(as.numeric(Var$var))
   	}
+
+
+ # Function for  rounding a data frame
+round_df <- function(x, digits) {
+    numeric_columns <- sapply(x, class) == 'numeric'
+    x[numeric_columns] <-  round(x[numeric_columns], digits)
+    x
+}
