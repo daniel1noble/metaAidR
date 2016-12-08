@@ -11,12 +11,12 @@ I2(model, v, sims = 1500, phylo = FALSE)
 
 \item{v}{The vector of sampling variance for each effect size.}
 
-\item{sims}{The number of simulations used for calculating distribution for metafor objects.}
+\item{sims}{The number of simulations used for calculating confidence intervals on I^2 estimates for metafor objects.}
 
-\item{phylo}{The name of the phylogenetic random effect. Defaults to FALSE meaning that no phylogenetic heritability is calculated.}
+\item{phylo}{A character string with the name of the phylogenetic random effect. Defaults to FALSE meaning that no phylogenetic heritability is calculated.}
 }
 \value{
-A data.frame containing the relevant I^2 measures along with the 95 percent credible intervals.
+A data.frame containing the relevant I^2 measures along with the 95 percent confidence / credible intervals.
 }
 \description{
 Function for calculating commonly reported  I^2 measures from MCMCglmm model objects.  See Nakagawa and Santos (2012) for detailed explanation on the various types of I^2
