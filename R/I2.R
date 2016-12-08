@@ -63,8 +63,8 @@ I2 <- function(model, v, sims = 1500, phylo = FALSE){
 		colnames(Sims) <- colnames(sigma2) 
 		
 		#Calculate total variance
-		         VT <- rowSums(Matrix::cBind(Sims, Vw))
-		          Vt <- rowSums(Sims)  # remove Vw
+		VT <- rowSums(Matrix::cBind(Sims, Vw))
+		Vt <- rowSums(Sims)  # remove Vw
 		
 		# For each variance component divide by the total variance. Note this needs to be fixed for phylo, but does deal with variable random effects.
 		 I2_re       <- Sims / VT
