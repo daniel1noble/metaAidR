@@ -3,23 +3,23 @@
 #' @description Function for calculating commonly reported  I^2 measures from MCMCglmm model objects.  See Nakagawa and Santos (2012) for detailed explanation on the various types of I^2
 #' @param model The MCMCglmm or metafor model object. Note that if using a metafor model object an observation level random effect must be used to calculate the residual variance. This should be input as "~1|obs" in the random effect list. 
 #' @param v The vector of sampling variance for each effect size. 
-#' @param sims The number of simulations used for calculating distribution for metafor objects.
-#' @param phylo The name of the phylogenetic random effect. Defaults to FALSE meaning that no phylogenetic heritability is calculated.
-#' @return A data.frame containing the relevant I^2 measures along with the 95 percent credible intervals.
+#' @param sims The number of simulations used for calculating confidence intervals on I^2 estimates for metafor objects.
+#' @param phylo A character string with the name of the phylogenetic random effect. Defaults to FALSE meaning that no phylogenetic heritability is calculated. 
+#' @return A data.frame containing the relevant I^2 measures along with the 95 percent confidence / credible intervals.
 #' @author Daniel Noble - daniel.noble@unsw.edu.au
 #' @references Nakagawa, S. and Santos, E.S.A. (2012) Methodological issues and advances in biological meta-analysis. Evolutionary Ecology, 26:1253-1274.
 #' @export
 
 I2 <- function(model, v, sims = 1500, phylo = FALSE){
 	
-	if(class(model) != "MCMCglmm" & class(model) != "rma.mv" & class(model) != "rma"){
+	if(class(model) != "MCMCglmm" && class(model) != "rma.mv" && class(model) != "rma"){
 		stop("The model object is not of class 'MCMCglmm' or 'metafor'")
 		}
 
 		wi <- 1/v  #weight
 		Vw <- sum((wi) * (length(wi) - 1))  / (((sum(wi)^2) - sum((wi)^2)))
 
-	if(class(model) == "MCMCglmm" ){
+	if("MCMCglmm" %in% class(model)){
 		# Get posterior distribution 
 		post <- model$VCV[,-match(c("sqrt(mev):sqrt(mev).meta"), colnames(model$VCV))]
 
@@ -29,37 +29,37 @@ I2 <- function(model, v, sims = 1500, phylo = FALSE){
 		
 		# For each variance component divide by the total variance. Note this needs to be fixed for phylo, but does deal with variable random effects.
 		  I2_re <- post / VT
+		  I2_total  <- Vt / VT
 
 		if(phylo == FALSE){
-			I2_phylo <- FALSE
+			tmpMatrix <- Matrix::cBind(I2_re, total = I2_total)
 		}else{
-		  	I2_phylo <- post[,grep(re.list$phylo), colnames(sigma2)] / Vt
+		  	I2_phylo <- post[,match(phylo, colnames(sigma2))] / Vt
+		  	tmpMatrix <- Matrix::cBind(I2_re, I2_phylo, total = I2_total)
 		  	}
 
-		 I2_total  <- Vt / VT
-		
-		if(I2_phylo == FALSE){
-			tmpMatrix <- Matrix::cBind(I2_re, total = I2_total)
-		} else{
-		            	tmpMatrix <- Matrix::cBind(I2_re, I2_phylo, total = I2_total)
-		}
-		   
 		   mode <- MCMCglmm::posterior.mode(coda::as.mcmc(tmpMatrix))
 		   CI <- coda::HPDinterval(coda::as.mcmc(tmpMatrix))
 		    colnames(CI) <- c("2.5% CI", "97.5% CI")
 
-		    Est_Table <- Matrix::cBind(I2_Est. = mode[-match("units", names(mode))], CI[-match("units", rownames(CI)),])
-	return(round_df(Est_Table, digits = 4))
+		    I2_Table <- as.data.frame(Matrix::cBind(I2_Est. = mode[-match("units", names(mode))], CI[-match("units", rownames(CI)),]))
+		    class(I2_Table) <- c("metaAidR", "data.frame")
+
+	return(round_df(I2_Table, digits = 4))
   	}
 
-  	if(class(model) ==  "rma.mv" | class(model) ==  "rma"){
+  	if("rma.mv" %in% class(model) | "rma" %in% class(model)){
   		#Monte Carlo Simulations
 		# From metafor extract the important statistics
   		sigma2 <- matrix(model$sigma2, nrow = 1, ncol = length(model$sigma2))
   		colnames(sigma2) <- model$s.names
 
+  		if("obs" %in% colnames(sigma2) == FALSE){
+  			stop("The metafor object does not contain a residual variance estimate. Please include an observation-level random effect (~1|obs) when fitting model")
+  		}
+
   		#For each variance estimate use Monte Carlo simulation of data
-  		Sims <- data.frame(sapply(sigma2, function(x) simMonteCarlo(x, sims = 1000)))
+  		Sims <- data.frame(sapply(sigma2, function(x) simMonteCarlo(x, sims = sims)))
 		colnames(Sims) <- colnames(sigma2) 
 		
 		#Calculate total variance
@@ -67,26 +67,22 @@ I2 <- function(model, v, sims = 1500, phylo = FALSE){
 		          Vt <- rowSums(Sims)  # remove Vw
 		
 		# For each variance component divide by the total variance. Note this needs to be fixed for phylo, but does deal with variable random effects.
-		  I2_re       <- Sims / VT
+		 I2_re       <- Sims / VT
+		 I2_total   <- Vt / VT
 
 		  if(phylo == FALSE){
-		  	I2_phylo <- FALSE
+		  	tmpMatrix <- Matrix::cBind(I2_re[,-match("obs", colnames(I2_re))], total = I2_total)
 		   }else{
-		  	I2_phylo <- Sims[,grep(re.list$phylo), colnames(sigma2)] / Vt
+		  	I2_phylo <- Sims[, match(phylo, colnames(sigma2))] / Vt
+		  	 tmpMatrix <- Matrix::cBind(I2_re[,-match("obs", colnames(I2_re))], phylo = I2_phylo, total = I2_total)
 		  }
 
-		  I2_total   <- Vt / VT
-
-		  if(I2_phylo == FALSE){
-			tmpMatrix <- Matrix::cBind(I2_re[,-match("obs", colnames(I2_re))], total = I2_total)
-		} else{
-		            	tmpMatrix <- Matrix::cBind(I2_re[,-match("obs", colnames(I2_re))], phylo = I2_phylo, total = I2_total)
-		}
-
-			CI <- lapply(tmpMatrix, function(x) stats::quantile(x, c(0.025, 0.975), na.rm = TRUE))
-		      I_CI <- as.data.frame(do.call(rbind, CI))
-		       colnames(I_CI) <- c("2.5% CI", "97.5% CI")
+		CI <- lapply(tmpMatrix, function(x) stats::quantile(x, c(0.025, 0.975), na.rm = TRUE))
+		I_CI <- as.data.frame(do.call(rbind, CI))
+		colnames(I_CI) <- c("2.5% CI", "97.5% CI")
 		I2_table <- Matrix::cBind(I2_Est. = colMeans(tmpMatrix), I_CI )
+		
+		class(I2_table) <- c("metaAidR", "data.frame")
 
 	return(round_df(I2_table, digits = 4))
   	}
