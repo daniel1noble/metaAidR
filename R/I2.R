@@ -53,13 +53,14 @@ I2 <- function(model, v, sims = 1500, phylo = FALSE){
 		# From metafor extract the important statistics
   		sigma2 <- matrix(model$sigma2, nrow = 1, ncol = length(model$sigma2))
   		colnames(sigma2) <- model$s.names
+  		sigmaN <- model$s.nlevels
 
   		if("obs" %in% colnames(sigma2) == FALSE){
   			stop("The metafor object does not contain a residual variance estimate. Please include an observation-level random effect (~1|obs) when fitting model")
   		}
 
   		#For each variance estimate use Monte Carlo simulation of data
-  		Sims <- data.frame(sapply(sigma2, function(x) simMonteCarlo(x, sims = sims)))
+  		Sims <- data.frame(mapply(function(x,y) simMonteCarlo(x, y, sims = sims), sigma2, sigmaN))
 		colnames(Sims) <- colnames(sigma2) 
 		
 		#Calculate total variance
@@ -96,9 +97,9 @@ I2 <- function(model, v, sims = 1500, phylo = FALSE){
 #' @param sims The number of simulations 
 #' @author Daniel Noble - daniel.noble@unsw.edu.au
 #' @export
-  simMonteCarlo <- function(estimate, sims){
+  simMonteCarlo <- function(estimate, n, sims){
   		set.seed(07)
-  		tmp <- data.frame(num = rep(1:sims, each = 5000), y = stats::rnorm(5000*sims, 0, sqrt(estimate)))
+  		tmp <- data.frame(num = rep(1:sims, each = n), y = stats::rnorm(n*sims, 0, sqrt(estimate)))
   		Var <- dplyr::summarise(dplyr::group_by(tmp, num), var = stats::var(y))
   		return(as.numeric(Var$var))
   	}
