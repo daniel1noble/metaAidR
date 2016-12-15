@@ -4,10 +4,12 @@
 \alias{simMonteCarlo}
 \title{Parametric simulation}
 \usage{
-simMonteCarlo(estimate, sims)
+simMonteCarlo(estimate, n, sims)
 }
 \arguments{
 \item{estimate}{The estimate (i.e. variance) from a metafor model}
+
+\item{n}{The sample size used in estimating the variance}
 
 \item{sims}{The number of simulations}
 }

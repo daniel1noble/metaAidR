@@ -95,6 +95,7 @@ I2 <- function(model, v, sims = 1500, phylo = FALSE){
 #' @description Function for calculating I2 estimates using parametric simulations of model estimates taken from metafor. Note that the effectiveness of these simulations depends on the accuracy of model variance estimates.
 #' @param estimate The estimate (i.e. variance) from a metafor model
 #' @param sims The number of simulations 
+#' @param n The sample size used in estimating the variance 
 #' @author Daniel Noble - daniel.noble@unsw.edu.au
 #' @export
   simMonteCarlo <- function(estimate, n, sims){
