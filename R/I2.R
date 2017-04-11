@@ -11,7 +11,7 @@
 #' @references Nakagawa, S. and Santos, E.S.A. (2012) Methodological issues and advances in biological meta-analysis. Evolutionary Ecology, 26:1253-1274.
 #' @export
 
-I2 <- function(model, v, ME = NULL, sims = 1500, phylo = FALSE){
+I2 <- function(model, v, ME = FALSE, sims = 1500, phylo = FALSE){
 	
 	if(class(model) != "MCMCglmm" && class(model) != "rma.mv" && class(model) != "rma"){
 		stop("The model object is not of class 'MCMCglmm' or 'metafor'")
@@ -23,7 +23,7 @@ I2 <- function(model, v, ME = NULL, sims = 1500, phylo = FALSE){
 	if("MCMCglmm" %in% class(model)){
 		# Get posterior distribution
 		# TO DO : NEED TO MAKE THIS WORK WITH ginverse in MCMCglmm. Added a bit, but needs work.
-		if(length(ME) == 0){
+		if(ME == FALSE){
 			post <- model$VCV[,-match(c("sqrt(mev):sqrt(mev).meta"), colnames(model$VCV))]
 		} else{
 			post <- model$VCV[,-match(ME, colnames(model$VCV))]
@@ -39,7 +39,7 @@ I2 <- function(model, v, ME = NULL, sims = 1500, phylo = FALSE){
 		if(phylo == FALSE){
 			tmpMatrix <- Matrix::cBind(I2_re, total = I2_total)
 		}else{
-		  	I2_phylo <- post[,match(phylo, colnames(sigma2))] / Vt
+		  	I2_phylo <- post[,match(phylo, colnames(post))] / Vt
 		  	tmpMatrix <- Matrix::cBind(I2_re, I2_phylo, total = I2_total)
 		  	}
 
