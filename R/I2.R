@@ -5,12 +5,13 @@
 #' @param v The vector of sampling variance for each effect size. 
 #' @param sims The number of simulations used for calculating confidence intervals on I^2 estimates for metafor objects.
 #' @param phylo A character string with the name of the phylogenetic random effect. Defaults to FALSE meaning that no phylogenetic heritability is calculated. 
+#' @param ME A character string with the name of the sampling error random effect. This is important if one wishes to enter the sampling variance matrix in as a sparse matrix (i.e. 'ginverse' argument) for MCMCglmm. Otherwise, assumed that the 'mev' argument is used. 
 #' @return A data.frame containing the relevant I^2 measures along with the 95 percent confidence / credible intervals.
 #' @author Daniel Noble - daniel.noble@unsw.edu.au
 #' @references Nakagawa, S. and Santos, E.S.A. (2012) Methodological issues and advances in biological meta-analysis. Evolutionary Ecology, 26:1253-1274.
 #' @export
 
-I2 <- function(model, v, sims = 1500, phylo = FALSE){
+I2 <- function(model, v, ME = NULL, sims = 1500, phylo = FALSE){
 	
 	if(class(model) != "MCMCglmm" && class(model) != "rma.mv" && class(model) != "rma"){
 		stop("The model object is not of class 'MCMCglmm' or 'metafor'")
@@ -20,9 +21,13 @@ I2 <- function(model, v, sims = 1500, phylo = FALSE){
 		Vw <- sum((wi) * (length(wi) - 1))  / (((sum(wi)^2) - sum((wi)^2)))
 
 	if("MCMCglmm" %in% class(model)){
-		# Get posterior distribution 
-		post <- model$VCV[,-match(c("sqrt(mev):sqrt(mev).meta"), colnames(model$VCV))]
-
+		# Get posterior distribution
+		# TO DO : NEED TO MAKE THIS WORK WITH ginverse in MCMCglmm. Added a bit, but needs work.
+		if(length(ME) == 0){
+			post <- model$VCV[,-match(c("sqrt(mev):sqrt(mev).meta"), colnames(model$VCV))]
+		} else{
+			post <- model$VCV[,-match(ME, colnames(model$VCV))]
+		}
 		#Calculate total variance
 		         VT <- rowSums(Matrix::cBind(post, Vw))
 		          Vt <- rowSums(post)  # remove Vw
