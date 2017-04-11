@@ -4,12 +4,14 @@
 \alias{I2}
 \title{I^2 Function}
 \usage{
-I2(model, v, sims = 1500, phylo = FALSE)
+I2(model, v, ME = FALSE, sims = 1500, phylo = FALSE)
 }
 \arguments{
 \item{model}{The MCMCglmm or metafor model object. Note that if using a metafor model object an observation level random effect must be used to calculate the residual variance. This should be input as "~1|obs" in the random effect list.}
 
 \item{v}{The vector of sampling variance for each effect size.}
+
+\item{ME}{A character string with the name of the sampling error random effect. This is important if one wishes to enter the sampling variance matrix in as a sparse matrix (i.e. 'ginverse' argument) for MCMCglmm. Otherwise, assumed that the 'mev' argument is used.}
 
 \item{sims}{The number of simulations used for calculating confidence intervals on I^2 estimates for metafor objects.}
 
