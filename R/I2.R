@@ -106,7 +106,7 @@ I2 <- function(model, v, ME = FALSE, sims = 1500, phylo = FALSE){
   simMonteCarlo <- function(estimate, n, sims){
   		set.seed(07)
   		tmp <- data.frame(num = rep(1:sims, each = n), y = stats::rnorm(n*sims, 0, sqrt(estimate)))
-  		Var <- dplyr::summarise(dplyr::group_by(tmp, num), var = stats::var(y))
+  		Var <- dplyr::summarise(dplyr::group_by(tmp, tmp$num), var = stats::var(tmp$y))
   		return(as.numeric(Var$var))
   	}
 

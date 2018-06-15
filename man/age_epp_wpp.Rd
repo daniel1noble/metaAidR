@@ -11,4 +11,3 @@ Proportion of within and extra-pair paternity for different ages. Data taken fro
 \references{
 Cleasby, I.R. and Nakagawa, S. (2012) The influence of male age on within-pair and extra-pair paternity in passerines. Ibis, 154: 318-324.
 }
-

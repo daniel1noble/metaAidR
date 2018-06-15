@@ -30,12 +30,11 @@ foldnorm(mu = mean(x), sd = sd(x), type = "raw")
 mean(abs(x))
 var(abs(x))
 }
-\author{
-Daniel Noble - daniel.noble@unsw.edu.au
-}
 \references{
 Morrisey, M.B. 2016. Meta-analysis of magnitudes, differences and variation in evolutionary parameters. Journal of Evolutionary Biology, 29:1882-1904
 
 Morrisey, M.B. 2016. Rejoinder: Further considerations for meta-analysis of transformed quantities such as absolute values. Journal of Evolutionary Biology, 29:1922-1931
 }
-
+\author{
+Daniel Noble - daniel.noble@unsw.edu.au
+}

@@ -29,4 +29,3 @@ Rutkowska, J., Dubiec, A. and Nakgawa, S. (2014). All eggs are made equal: a met
 
 Higgins, J.P.T. and Green, S. (2009). Cochran handbook for systematic reviews and interventions. Wiley-Blackwell. pgs 412-414.
 }
-

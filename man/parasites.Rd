@@ -17,4 +17,3 @@ Correlation between
 \references{
 Poulin, R. (2000) Manipulation of host behaviour by parasites: a weakening paradigm? Proceedings of the Royal Society B: Biological Sciences, 267: 1471-2954.
 }
-

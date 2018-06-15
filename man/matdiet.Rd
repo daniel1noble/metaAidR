@@ -11,4 +11,3 @@ Data set on how maternal diet impacts copying styles in rodents. Data was taken 
 \references{
 Besson, A. A., Lagisz, M., Senior, A.M., Hector, K.L. and Nakagawa, S. (2016). Effect of maternal diet on offspring coping styles in rodents: a systematic review and meta-analysis. Biological Reviews, 91:1065-1080
 }
-

@@ -11,4 +11,3 @@ A meta-analysis of the relationship between plumage traits and dominance in bird
 \references{
 Santos, E.S.A., Scheck, D. and Nakagawa, S. (2011) Dominance and plumage traits: meta-analysis and meta-regression analysis. Animal Behaviour, 82: 3-19.
 }
-

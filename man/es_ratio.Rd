@@ -43,4 +43,3 @@ This function estimates less commonly used (lnHR) or newly developed effect size
 \author{
 Daniel Noble - daniel.noble@unsw.edu.au
 }
-

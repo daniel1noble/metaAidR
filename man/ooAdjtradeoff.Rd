@@ -11,4 +11,3 @@ Data set investing the correlations between offspring size and offspring number 
 \references{
 Lim, J. N., Senior, A. M. and Nakagawa, S. (2014) Heterogeneity in individual quality and reproductive trade-offs within species. Evolution, 68:2306-2318.
 }
-

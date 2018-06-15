@@ -25,4 +25,3 @@ Function for calculating log response ratio
 \author{
 Daniel Noble - daniel.noble@unsw.edu.au
 }
-

@@ -48,4 +48,3 @@ Data set investing the impact of heat shock exposure on longevity. Data was take
 \references{
 Lagisz, M., Hector, K.L. and Nakagawa, S. (2013) Life exstension after heat shock exposure: Assessing meta-analytic evidence for hormesis. Ageing Research Reviews, 12:653-660.
 }
-

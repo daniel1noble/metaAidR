@@ -23,10 +23,9 @@ A data.frame containing the relevant I^2 measures along with the 95 percent conf
 \description{
 Function for calculating commonly reported  I^2 measures from MCMCglmm model objects.  See Nakagawa and Santos (2012) for detailed explanation on the various types of I^2
 }
-\author{
-Daniel Noble - daniel.noble@unsw.edu.au
-}
 \references{
 Nakagawa, S. and Santos, E.S.A. (2012) Methodological issues and advances in biological meta-analysis. Evolutionary Ecology, 26:1253-1274.
 }
-
+\author{
+Daniel Noble - daniel.noble@unsw.edu.au
+}

@@ -21,4 +21,3 @@ Function for calculating log odds ratio effect size statistics
 \author{
 Daniel Noble - daniel.noble@unsw.edu.au
 }
-

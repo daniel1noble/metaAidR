@@ -21,4 +21,3 @@ Function for calculating the sampling variance for Hedges' d or biased corrected
 \author{
 Daniel Noble - daniel.noble@unsw.edu.au
 }
-

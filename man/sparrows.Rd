@@ -17,4 +17,3 @@ Correlation between
 \references{
 Nakgawa, S., Ockendon, N., Gillespie, D.O.S., Hatchwell, B.J. and Burke, T. (2007) Assessing the function of house sparrows' bib size using a flexible meta-analysis method. Behavioural Ecology, 18:831-840.
 }
-

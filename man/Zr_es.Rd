@@ -17,4 +17,3 @@ Function for calculating Fisher's z-transformed correlation.
 \author{
 Daniel Noble - daniel.noble@unsw.edu.au
 }
-

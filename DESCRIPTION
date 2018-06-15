@@ -1,5 +1,5 @@
 Package: metaAidR
-Title: Functions and data for aiding meta-analyses in ecology and evolution
+Title: Functions and Data for Aiding Meta-analyses in Ecology and Evolution
 Version: 0.0.0.9000
 Authors@R: c(person("Malgorzata", "Lagisz", email="m.nakagawa-lagisz@unsw.edu.au", role=c("aut")),person("Alistair", "Senior", email="alistair.senior1985@gmail.com", role=c("aut")),person("Shinichi", "Nakagawa", email="s.nakagawa@unsw.edu.au", role=c("aut")),person("Daniel", "Noble", email="daniel.wa.noble@gmail.com", role=c("aut", "cre")))
 Description: Functions for aiding meta-analyses in ecology and evolution.
@@ -17,11 +17,12 @@ Imports:
     dplyr,
     coda,
     stats,
-    Matrix
+    Matrix,
+    utils
 Suggests:
     knitr,
     rmarkdown,
     testthat,
     lme4
 VignetteBuilder: knitr
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

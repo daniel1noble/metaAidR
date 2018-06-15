@@ -11,4 +11,3 @@ Data set investing whether changes in mTOR (rapamycin) signaling extend lifespan
 \references{
 Garratt, M., Nakagawa, S., Simons, M.J.P. (2016) Comparative idiosyncrasies in life extension by reduced mTOR signaling and its distinctiveness from dietary restriction. Aging Cell, 15: 737-743.
 }
-

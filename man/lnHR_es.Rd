@@ -18,12 +18,11 @@ lnHR_es(d1, d2, n1HR, n2HR)
 \description{
 Function for calculating log hazards ratio effect size statistics, for a specified period in time-to-event or survival curve data.
 }
-\author{
-Daniel Noble - daniel.noble@unsw.edu.au
-}
 \references{
 Williamson PR, Smith CT, Hutton JL,  Marson AG (2002). Aggregate data meta-analysis with time-to-event outcomes. Stat. Med. 21, 3337-3351.
 
 Parmar MKB, Torri V,  Stewart L (1998). Extracting summary statistics to perform meta-analyses of the published literature for survival endpoints. Stat. Med. 17, 2815-2834.
 }
-
+\author{
+Daniel Noble - daniel.noble@unsw.edu.au
+}

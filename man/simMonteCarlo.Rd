@@ -19,4 +19,3 @@ Function for calculating I2 estimates using parametric simulations of model esti
 \author{
 Daniel Noble - daniel.noble@unsw.edu.au
 }
-

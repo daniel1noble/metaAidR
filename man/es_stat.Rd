@@ -39,4 +39,3 @@ Function for calculating common effect size statistics.  Effect size statistics 
 \author{
 Daniel Noble - daniel.noble@unsw.edu.au
 }
-

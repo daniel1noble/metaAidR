@@ -29,7 +29,7 @@ make_VCV_matrix <- function(data, V, cluster, obs, type=c("vcv", "cor"), rho=0.5
   # find start and end coordinates for the subsets
   shared_coord <- which(data[ ,cluster] %in% data[duplicated(data[ ,cluster]), cluster]==TRUE)
   # matrix of combinations of coordinates for each experiment with shared control
-  combinations <- do.call("rbind", tapply(shared_coord, data[shared_coord,cluster], function(x) t(combn(x,2))))
+  combinations <- do.call("rbind", tapply(shared_coord, data[shared_coord,cluster], function(x) t(utils::combn(x,2))))
   
   if(type == "vcv"){
     # calculate covariance values between  values at the positions in shared_list and place them on the matrix

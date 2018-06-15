@@ -18,10 +18,9 @@ lnVR_es(sd1, sd2, n1, n2)
 \description{
 Function for calculating log variation ratio effect size statistics.
 }
-\author{
-Alistair Senior - Alistair.senior@sydney.edu.au
-}
 \references{
 Nakagawa et al. (2015) Meta-analysis of variation: ecological and evolutionary applications and beyond. Methods in Ecology and Evolution, 6:143-152.
 }
-
+\author{
+Alistair Senior - Alistair.senior@sydney.edu.au
+}
