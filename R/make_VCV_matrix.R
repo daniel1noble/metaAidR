@@ -2,13 +2,15 @@
 #' @title Covariance and correlation matrix function basing on shared level ID
 #' @description Function for generating simple covariance and correlation matrices 
 #' @param data Dataframe object containing effect sizes, their variance, unique IDs and clustering variable
-#' @param V Name of the variable (vector) containing effect size variances variances
-#' @param cluster Name of the variable (vector) indicating which effects belong to the same cluster. Same value of 'cluster' are assumed to be nonindependent (correlated).
-#' @param obs Name of the variable (vector) containing individual IDs for each value in the V (Vector of variances). If this parameter is missing, label will be labelled with consecutive integers starting from 1.
+#' @param V Name of the variable (as a string – e.g, "V1") containing effect size variances variances
+#' @param cluster Name of the variable (as a string – e.g, "V1") indicating which effects belong to the same cluster. Same value of 'cluster' are assumed to be nonindependent (correlated).
+#' @param obs Name of the variable (as a string – e.g, "V1") containing individual IDs for each value in the V (Vector of variances). If this parameter is missing, label will be labelled with consecutive integers starting from 1.
 #' @param rho Known or assumed correlation value among effect sizes sharing same 'cluster' value. Default value is 0.5.
 #' @param type Optional logical parameter indicating whether a full variance-covariance matrix (default or "vcv") is needed or a correlation matrix ("cor") for the non-independent blocks of variance values.
 #' @export
 #Value: Labelled full variance-covariance or correlation matrice of the size and labels matching initial dataframe will be returned 
+
+## TO DO: Implement a shared control equations for SMD and lnRR, maybe similar to eho = 0.5, but we have exact calculations so probably worth implementing
 
 make_VCV_matrix <- function(data, V, cluster, obs, type=c("vcv", "cor"), rho=0.5){
   
