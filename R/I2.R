@@ -29,7 +29,7 @@ I2 <- function(model, v, ME = FALSE, sims = 1500, phylo = FALSE){
 			post <- model$VCV[,-match(ME, colnames(model$VCV))]
 		}
 		#Calculate total variance
-		         VT <- rowSums(Matrix::cBind(post, Vw))
+		         VT <- rowSums(cbind(post, Vw))
 		          Vt <- rowSums(post)  # remove Vw
 		
 		# For each variance component divide by the total variance. Note this needs to be fixed for phylo, but does deal with variable random effects.
@@ -37,17 +37,17 @@ I2 <- function(model, v, ME = FALSE, sims = 1500, phylo = FALSE){
 		  I2_total  <- Vt / VT
 
 		if(phylo == FALSE){
-			tmpMatrix <- Matrix::cBind(I2_re, total = I2_total)
+			tmpMatrix <- cbind(I2_re, total = I2_total)
 		}else{
 		  	I2_phylo <- post[,match(phylo, colnames(post))] / Vt
-		  	tmpMatrix <- Matrix::cBind(I2_re, I2_phylo, total = I2_total)
+		  	tmpMatrix <- cbind(I2_re, I2_phylo, total = I2_total)
 		  	}
 
 		   mode <- MCMCglmm::posterior.mode(coda::as.mcmc(tmpMatrix))
 		   CI <- coda::HPDinterval(coda::as.mcmc(tmpMatrix))
 		    colnames(CI) <- c("2.5% CI", "97.5% CI")
 
-		    I2_Table <- as.data.frame(Matrix::cBind(I2_Est. = mode[-match("units", names(mode))], CI[-match("units", rownames(CI)),]))
+		    I2_Table <- as.data.frame(cbind(I2_Est. = mode[-match("units", names(mode))], CI[-match("units", rownames(CI)),]))
 		    class(I2_Table) <- c("metaAidR", "data.frame")
 
 	return(round_df(I2_Table, digits = 4))
@@ -65,11 +65,11 @@ I2 <- function(model, v, ME = FALSE, sims = 1500, phylo = FALSE){
   		}
 
   		#For each variance estimate use Monte Carlo simulation of data
-  		Sims <- data.frame(mapply(function(x,y) simMonteCarlo(x, y, sims = sims), sigma2, sigmaN))
+  		Sims <- data.frame(mapply(function(x,y) simMonteCarlo(x, y, sims = sims), x = sigma2, y = sigmaN))
 		colnames(Sims) <- colnames(sigma2) 
 		
 		#Calculate total variance
-		VT <- rowSums(Matrix::cBind(Sims, Vw))
+		VT <- rowSums(cbind(Sims, Vw))
 		Vt <- rowSums(Sims)  # remove Vw
 		
 		# For each variance component divide by the total variance. Note this needs to be fixed for phylo, but does deal with variable random effects.
@@ -77,16 +77,16 @@ I2 <- function(model, v, ME = FALSE, sims = 1500, phylo = FALSE){
 		 I2_total   <- Vt / VT
 
 		  if(phylo == FALSE){
-		  	tmpMatrix <- Matrix::cBind(I2_re[,-match("obs", colnames(I2_re))], total = I2_total)
+		  	tmpMatrix <- cbind(I2_re[,-match("obs", colnames(I2_re))], total = I2_total)
 		   }else{
 		  	I2_phylo <- Sims[, match(phylo, colnames(sigma2))] / Vt
-		  	 tmpMatrix <- Matrix::cBind(I2_re[,-match("obs", colnames(I2_re))], phylo = I2_phylo, total = I2_total)
+		  	 tmpMatrix <- cbind(I2_re[,-match("obs", colnames(I2_re))], phylo = I2_phylo, total = I2_total)
 		  }
 
 		CI <- lapply(tmpMatrix, function(x) stats::quantile(x, c(0.025, 0.975), na.rm = TRUE))
 		I_CI <- as.data.frame(do.call(rbind, CI))
 		colnames(I_CI) <- c("2.5% CI", "97.5% CI")
-		I2_table <- Matrix::cBind(I2_Est. = colMeans(tmpMatrix), I_CI )
+		I2_table <- cbind(I2_Est. = colMeans(tmpMatrix), I_CI )
 		
 		class(I2_table) <- c("metaAidR", "data.frame")
 
@@ -104,12 +104,11 @@ I2 <- function(model, v, ME = FALSE, sims = 1500, phylo = FALSE){
 #' @author Daniel Noble - daniel.noble@unsw.edu.au
 #' @export
   simMonteCarlo <- function(estimate, n, sims){
-  		set.seed(07)
-  		tmp <- data.frame(num = rep(1:sims, each = n), y = stats::rnorm(n*sims, 0, sqrt(estimate)))
-  		Var <- dplyr::summarise(dplyr::group_by(tmp, tmp$num), var = stats::var(tmp$y))
-  		return(as.numeric(Var$var))
+  		tmp <- data.frame(num = rep(1:sims, each = n), 
+  			y = stats::rnorm(n*sims, 0, sqrt(estimate)))
+  		Var <- tmp %>% dplyr::group_by(num) %>% dplyr::summarise(Mean_var = var(y))
+  		return(as.numeric(Var$Mean_var))
   	}
-
 
  # Function for  rounding a data frame
 round_df <- function(x, digits) {
