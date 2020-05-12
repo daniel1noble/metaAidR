@@ -4,7 +4,8 @@
 \name{birdegg_ssd.8}
 \alias{birdegg_ssd.8}
 \title{birdegg_ssd.8 data}
-\format{A raw csv file containing the following columns and descriptors
+\format{
+A raw csv file containing the following columns and descriptors
 \enumerate{
 \item animal:	species Latin name
 \item Spp:	species common name
@@ -20,7 +21,8 @@
 \item EN:	effective sample size
 \item Zr:	Fisher's Z
 \item VZr:	sampling variance
-}}
+}
+}
 \description{
 Data set on bird egg sexual size dimorphism meta-analysis. Data was taken from Rutkowska et al. (2014). In this study more than one egg came from the same study which introduces non-independence in the data (i.e. correlated structure). As a sensitivity analysis Rutkowska et al. (2014) used an effective sample size proposed by Higgins and Green (2009), which requires an estimate of the intra-class correlation coefficient (ICC) in the calculation of effect sizes. In this case, an ICC estimate of 0.8 was used.
 }

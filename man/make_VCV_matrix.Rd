@@ -9,11 +9,11 @@ make_VCV_matrix(data, V, cluster, obs, type = c("vcv", "cor"), rho = 0.5)
 \arguments{
 \item{data}{Dataframe object containing effect sizes, their variance, unique IDs and clustering variable}
 
-\item{V}{Name of the variable (vector) containing effect size variances variances}
+\item{V}{Name of the variable (as a string – e.g, "V1") containing effect size variances variances}
 
-\item{cluster}{Name of the variable (vector) indicating which effects belong to the same cluster. Same value of 'cluster' are assumed to be nonindependent (correlated).}
+\item{cluster}{Name of the variable (as a string – e.g, "V1") indicating which effects belong to the same cluster. Same value of 'cluster' are assumed to be nonindependent (correlated).}
 
-\item{obs}{Name of the variable (vector) containing individual IDs for each value in the V (Vector of variances). If this parameter is missing, label will be labelled with consecutive integers starting from 1.}
+\item{obs}{Name of the variable (as a string – e.g, "V1") containing individual IDs for each value in the V (Vector of variances). If this parameter is missing, label will be labelled with consecutive integers starting from 1.}
 
 \item{type}{Optional logical parameter indicating whether a full variance-covariance matrix (default or "vcv") is needed or a correlation matrix ("cor") for the non-independent blocks of variance values.}
 

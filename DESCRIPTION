@@ -18,11 +18,14 @@ Imports:
     coda,
     stats,
     Matrix,
-    utils
+    utils,
+    tidyverse,
+    magrittr
 Suggests:
     knitr,
     rmarkdown,
     testthat,
     lme4
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+Encoding: UTF-8
+RoxygenNote: 7.1.0

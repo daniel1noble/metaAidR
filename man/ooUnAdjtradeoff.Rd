@@ -4,7 +4,9 @@
 \name{ooUnAdjtradeoff}
 \alias{ooUnAdjtradeoff}
 \title{ooUnAdjtradeoff}
-\format{A raw csv file containing the following columns and descriptors}
+\format{
+A raw csv file containing the following columns and descriptors
+}
 \description{
 Data set investing the correlations between offspring size and offspring number not adjusting for maternal size (dataset 4: OO.Unadjusted). Data was taken from Lim et al. (2014).
 }

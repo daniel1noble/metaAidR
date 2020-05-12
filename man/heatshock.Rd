@@ -4,7 +4,9 @@
 \name{heatshock}
 \alias{heatshock}
 \title{heat shock and life extension data}
-\format{A raw csv file containing the following columns and descriptors}
+\format{
+A raw csv file containing the following columns and descriptors
+}
 \description{
 Data set investing the impact of heat shock exposure on longevity. Data was taken from Lagisz et al. (2013).
 \enumerate{

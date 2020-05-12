@@ -4,7 +4,9 @@
 \name{plumage}
 \alias{plumage}
 \title{plumage and dominance}
-\format{A raw csv file containing the following columns and descriptors.}
+\format{
+A raw csv file containing the following columns and descriptors.
+}
 \description{
 A meta-analysis of the relationship between plumage traits and dominance in birds. Data taken from Santos et al. (2011).
 }

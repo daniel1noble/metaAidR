@@ -4,13 +4,15 @@
 \name{parasites}
 \alias{parasites}
 \title{Host manipulation and parasite data}
-\format{A raw csv file containing the following columns and descriptors. UI = Uninfected; U = Infected	
+\format{
+A raw csv file containing the following columns and descriptors. UI = Uninfected; U = Infected	
 \enumerate{
 \item Parasite.species: Species of parasite
 \item Phylum: Phylum
 \item Class: Class
 \item Family: Family
-}}
+}
+}
 \description{
 Correlation between
 }

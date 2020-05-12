@@ -4,7 +4,9 @@
 \name{age_epp_wpp}
 \alias{age_epp_wpp}
 \title{Within pair paternity data and age}
-\format{A raw csv file containing the following columns and descriptors.}
+\format{
+A raw csv file containing the following columns and descriptors.
+}
 \description{
 Proportion of within and extra-pair paternity for different ages. Data taken from Cleasby and Nakagawa (2012).
 }

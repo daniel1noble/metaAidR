@@ -110,6 +110,8 @@ I2 <- function(model, v, ME = FALSE, sims = 1500, phylo = FALSE){
   		return(as.numeric(Var$Mean_var))
   	}
 
+  	## NOTE about PIPE: Run usethis::use_pipe() in the console. The package usethis will add what you need to import the pipe to your NAMESPACE and it will also drop warnings in checks
+
  # Function for  rounding a data frame
 round_df <- function(x, digits) {
     numeric_columns <- sapply(x, class) == 'numeric'

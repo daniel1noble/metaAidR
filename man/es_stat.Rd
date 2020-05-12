@@ -4,8 +4,19 @@
 \alias{es_stat}
 \title{es_stat: Function for calculating effect size statistics}
 \usage{
-es_stat(m1, m2, sd1, sd2, n1, n2, p1, p2, r, nr, type = c("d", "g", "Zr",
-  "lnOR"))
+es_stat(
+  m1,
+  m2,
+  sd1,
+  sd2,
+  n1,
+  n2,
+  p1,
+  p2,
+  r,
+  nr,
+  type = c("d", "g", "Zr", "lnOR")
+)
 }
 \arguments{
 \item{m1}{Mean of group 1}

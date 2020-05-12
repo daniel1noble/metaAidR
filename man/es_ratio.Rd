@@ -4,8 +4,21 @@
 \alias{es_ratio}
 \title{es_ratio: Function for calculating ratio-based effect size statistics}
 \usage{
-es_ratio(m1, m2, sd1, sd2, n1, n2, d1, d2, n1HR, n2HR, cor = cor,
-  equal.corr = TRUE, type = c("lnRR", "lnCVR", "lnVR", "lnHR"))
+es_ratio(
+  m1,
+  m2,
+  sd1,
+  sd2,
+  n1,
+  n2,
+  d1,
+  d2,
+  n1HR,
+  n2HR,
+  cor = cor,
+  equal.corr = TRUE,
+  type = c("lnRR", "lnCVR", "lnVR", "lnHR")
+)
 }
 \arguments{
 \item{m1}{Mean of group 1}

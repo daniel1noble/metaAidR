@@ -4,7 +4,9 @@
 \name{matdiet}
 \alias{matdiet}
 \title{matdiet}
-\format{A raw csv file containing the following columns and descriptors}
+\format{
+A raw csv file containing the following columns and descriptors
+}
 \description{
 Data set on how maternal diet impacts copying styles in rodents. Data was taken from Besson et al. (2016).
 }

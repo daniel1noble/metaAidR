@@ -4,13 +4,15 @@
 \name{sparrows}
 \alias{sparrows}
 \title{sparrow data}
-\format{A raw csv file containing the following columns and descriptors	
+\format{
+A raw csv file containing the following columns and descriptors	
 \enumerate{
 \item StudyID: Study number
 \item Place: Location of sparrow population
 \item Correlation: correlation coefficient
 \item SampleSize: Sample size for study
-}}
+}
+}
 \description{
 Correlation between
 }

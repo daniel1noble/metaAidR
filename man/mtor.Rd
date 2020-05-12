@@ -4,7 +4,9 @@
 \name{mtor}
 \alias{mtor}
 \title{mtor data}
-\format{A raw csv file containing the following columns and descriptors}
+\format{
+A raw csv file containing the following columns and descriptors
+}
 \description{
 Data set investing whether changes in mTOR (rapamycin) signaling extend lifespan. Data was taken from Garratt et al. (2016).
 }

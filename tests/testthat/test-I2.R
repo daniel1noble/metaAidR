@@ -42,36 +42,44 @@ test_that("Check that output is correct", {
 
 	I2T <- (SDsty^2 + SDsp^2 + SDe) / (SDsty^2 + SDsp^2 + Vw + SDe)
 
-	#This model estimates a residual variance
-	metaFor <- metafor::rma.mv(es, V, random = list(~1|spp, ~1|stdy, ~1|obs), struct="UN",data = data)
-	metaFor2 <- metafor::rma.mv(es, V, random = list(~1|spp, ~1|stdy, ~1|rg, ~1|obs), struct="UN",data = data2)
-	#Test failing
-	metaFor3 <- metafor::rma.mv(es, V, random = list(~1|spp, ~1|stdy), struct="UN",data = data)
-
+	# Run with metafor
+	 metaFor <- metafor::rma.mv(es, V, random = list(~1|spp, ~1|stdy, ~1|obs), data = data)
+	metaFor2 <- metafor::rma.mv(es, V, random = list(~1|spp, ~1|stdy, ~1|rg, ~1|obs), data = data2)
+	
 	#Run in MCMCglmm
-	metaMCMC <- MCMCglmm::MCMCglmm(es~1, random = ~spp + stdy, mev = V, data = data)
+	 metaMCMC <- MCMCglmm::MCMCglmm(es~1, random = ~spp + stdy, mev = V, data = data)
 	metaMCMC2 <- MCMCglmm::MCMCglmm(es~1, random = ~spp + stdy + rg, mev = V, data = data2)
+
+	#Test should fail
+	metaFor3 <- metafor::rma.mv(es, V, random = list(~1|spp, ~1|stdy), data = data)
 
 	# Wrong model!
 	lmER <- lme4::lmer(es ~1 + (1|spp) + (1|stdy), weights = V, data = data)
 
 	# Testing the I2 function
-	MetaF <- I2(metaFor, v = data$V)
+	 MetaF <- I2(metaFor, v = data$V)
 	MetaF2 <- I2(metaFor2, v = data$V)
 
-	MCMC <- I2(metaMCMC, v = data$V, phylo = FALSE)
+	 MCMC <- I2(metaMCMC, v = data$V, phylo = FALSE)
 	MCMC2 <- I2(metaMCMC2, v = data$V, phylo = FALSE)
 
 	#Tests
-	expect_equal(as.numeric(MetaF[rownames(MetaF) == "spp",][1]) ,  I2spp, tolerance = 0.01, info = "faildMetaspp")
-	expect_equal(as.numeric(MetaF[rownames(MetaF) == "stdy",][1]) ,  I2st, tolerance = 0.05, info = "faildMetastudy")
-	expect_equal(as.numeric(MetaF[rownames(MetaF) == "total",][1]) ,  I2T, tolerance = 0.05, info = "faildMetatot")
+	expect_equal(as.numeric(MetaF[rownames(MetaF) == "spp",][1]) ,  
+		 		 I2spp, tolerance = 0.01, info = "faildMetaspp")
+	expect_equal(as.numeric(MetaF[rownames(MetaF) == "stdy",][1]) ,  
+					I2st, tolerance = 0.05, info = "faildMetastudy")
+	expect_equal(as.numeric(MetaF[rownames(MetaF) == "total",][1]) ,  
+					I2T, tolerance = 0.05, info = "faildMetatot")
+	
 	expect_equal(dim(MetaF2),  c(4,3), info = "dimMetaforFail")
 	expect_error(I2(metaFor3, v = data$V), info = "failedMetafor_no_obs")
 	expect_error(I2(lmER, v = data$V), info = "failedWrongModel")
 
-	expect_equal(as.numeric(MCMC[rownames(MCMC) == "spp",][1]) ,  I2spp, tolerance = 0.005, info = "faildMCspp")
-	expect_equal(as.numeric(MCMC[rownames(MCMC) == "stdy",][1]) ,  I2st, tolerance = 0.05, info = "faildMCstudy")
-	expect_equal(as.numeric(MCMC[rownames(MCMC) == "total",][1]) ,  I2T, tolerance = 0.05, info = "faildMCTot")
+	expect_equal(as.numeric(MCMC[rownames(MCMC) == "spp",][1]) ,  
+				I2spp, tolerance = 0.005, info = "faildMCspp")
+	expect_equal(as.numeric(MCMC[rownames(MCMC) == "stdy",][1]) ,  
+				I2st, tolerance = 0.05, info = "faildMCstudy")
+	expect_equal(as.numeric(MCMC[rownames(MCMC) == "total",][1]) ,  
+				I2T, tolerance = 0.05, info = "faildMCTot")
 	expect_equal(dim(MCMC2),  c(4,3), info = "dimMCMCFail")
 })

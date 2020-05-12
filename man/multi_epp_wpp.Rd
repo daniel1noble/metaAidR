@@ -4,7 +4,9 @@
 \name{multi_epp_wpp}
 \alias{multi_epp_wpp}
 \title{Multivariate wpp and epp}
-\format{A raw csv file containing the following columns and descriptors.}
+\format{
+A raw csv file containing the following columns and descriptors.
+}
 \description{
 Proportion of within and extra-pair paternity for different ages. Data taken from Cleasby and Nakagawa (2012).
 }

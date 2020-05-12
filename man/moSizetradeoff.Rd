@@ -4,7 +4,9 @@
 \name{moSizetradeoff}
 \alias{moSizetradeoff}
 \title{moSizetradeoff}
-\format{A raw csv file containing the following columns and descriptors}
+\format{
+A raw csv file containing the following columns and descriptors
+}
 \description{
 Data set investing the correlations between maternal size and offspring size (dataset 1: MO.size). Data was taken from Lim et al. (2014).
 }
