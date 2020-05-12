@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/daniel1noble/metaAidR.svg?branch=master)](https://travis-ci.org/daniel1noble/metaAidR) [![codecov](https://codecov.io/gh/daniel1noble/metaAidR/branch/master/graph/badge.svg)](https://codecov.io/gh/daniel1noble/metaAidR)
 
-#**metaAidR**
+# **metaAidR**
 
 ## **Description**
 
