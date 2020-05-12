@@ -2,11 +2,32 @@
 
 # **metaAidR**
 
-## **Description**
+## Table of contents
+1. [Description](#Description)
+2. [Installation](#Installation) 
+3. [Datasets](#Datasets) 
+4. [Functions](#Functions) 
+5. [References](#References) 
+
+
+## **Description** <a name="Description"></a>
 
 *metaAidR* contains a set of functions that allows users to make use of both simple (i.e. calculation of effect size statistics) along with more advanced (i.e. generate correlation/(co)variance matrices for non-independence, calculate I<sup>2</sup> & R<sup>2</sup> statistics) formal meta-analytic procedures. In addition, it contains a number of datasets that are used to demonstrate the use of functions and statistical concepts. This package will accompany a 'how-to' paper and is under active development. 
 
-## **Datasets**
+## **Installation** <a name="Installation"></a>
+
+*metaAidR* is not currently on CRAN. For **testing purposes only** it can be downloaded through `devtools` as follows:
+
+```
+install.packages("devtools")
+library(devtools)
+install_github("daniel1noble/metaAidR")
+```
+`devtools` will install all the relevant documentation and data associated with the package. 
+
+**NOTE**: While functions exist, they are still not completely functional. Additionally, not all functions have been effectively tested and so should not be used or used with extreme caution!
+
+## **Datasets** <a name="Datasets"></a>
 
 *metaAidR* comes with a suite of different datasets which accompany the examples in the 'how-to' paper. These example datasets are used to demonstrate the functionality of *metaAidR* along with more advanced meta-analytic topics that maybe of interest to practitioners. Datasets can be queried and loaded as with normal R packages. Currently, the datasets that exist are as follows:
 
@@ -25,30 +46,17 @@
 
 For more details on each specific meta-analysis use `?` in combination with the specific dataset (e.g. `?heatshock`). This will provide meta-data details for each dataset along with its reference and a description.
 
-## **Functions**
+## **Functions** <a name="Functions"></a>
 
-Currently, there are five main functions: `es_stat`, `es_ratio`, `coMatrix`, `I2`, `foldnorm`. While `es_stat` and `es_ratio` are functions that can be found in other meta-analytic packages (e.g. `metafor`), we have separated out two different families of effect size statistics and have expanded these functions to include more recently developed effect size statistics. For example, `es_stat` will implement commonly used effect size statistics (i.e. Cohen's / Hedges' *d*; Hedges' *g*, Fisher's z-transformed correlation coefficient and log odds ratio). While these are common effect size measures, they also have the important property that these measurements can be converted among each other. Hence, the plan is to provide arguments that the user can specify the type of data they would like so that calculations can be done with multiple data types to the relevant effect size statistic and then re-calculated into a common type for analysis.  `es_ratio` contains the ratio family effect size statistics (e.g. log response ratio), along with newly developed or less commonly applied effects sizes including those for comparing variances (i.e. log coefficient of variation ratio and log variance ratio) and log hazards ratios. 
+Currently, there are five main functions: `es_stat`, `es_ratio`, `make_VCV_matrix`, `I2`, `foldnorm`. While `es_stat` and `es_ratio` are functions that can be found in other meta-analytic packages (e.g. `metafor`), we have separated out two different families of effect size statistics and have expanded these functions to include more recently developed effect size statistics. For example, `es_stat` will implement commonly used effect size statistics (i.e. Cohen's / Hedges' *d*; Hedges' *g*, Fisher's z-transformed correlation coefficient and log odds ratio). While these are common effect size measures, they also have the important property that these measurements can be converted among each other. Hence, the plan is to provide arguments that the user can specify the type of data they would like so that calculations can be done with multiple data types to the relevant effect size statistic and then re-calculated into a common type for analysis.  `es_ratio` contains the ratio family effect size statistics (e.g. log response ratio), along with newly developed or less commonly applied effects sizes including those for comparing variances (i.e. log coefficient of variation ratio and log variance ratio) and log hazards ratios. 
 
 In addition to functions for calculating effect size statistics, *metaAidR* also will calculate flexible heterogeneity statistics (I<sup>2</sup>), from common meta-analytic models from `metafor` and `MCMCglmm` model objects. These are not yet implemented but are forthcoming. 
 
-Meta-analytic models also often exhibit unique (and common) forms of non-independence. To provide users with useful functions to calculate correlation / (co)variance matrices *metaAidR* also provides a `coMatrix` function that allows the user to generate covariance matrices based on shared control measurements, phylogenetic correlation matrices or within-study/shared trait measurements matrices that can be used as input matrices for common meta-analytic models implemented in both `metafor` and `MCMCglmm`. 
+Meta-analytic models also often exhibit unique (and common) forms of non-independence. To provide users with useful functions to calculate correlation / (co)variance matrices *metaAidR* also provides a `make_VCV_matrix` function that allows the user to generate covariance matrices based on shared control measurements, phylogenetic correlation matrices (not yet active)or within-study/shared trait measurements matrices that can be used as input matrices for common meta-analytic models implemented in both `metafor` and `MCMCglmm`. 
 
-For many situations in ecology and evolution, the absolute or magnitude of effect size is of most interest, rather than effect size estimates containing directionality (see Morrissey 2016a & b). Absolute effect size estimates follow a folded normal distribution and need to be modeled correctly to avoid bias. As such, for users interested in effect magnitude we have developed a `foldnorm` function which can apply results from normal meta-analytic models (that assume Gaussain error distributions) to generate corrected effect magnitude and credible intervals using an 'anlayse then transform' approach suggested by Morrissey (2016a).
+For many situations in ecology and evolution, the absolute or magnitude of effect size is of most interest, rather than effect size estimates containing directionality (see Morrissey 2016a & b). Absolute effect size estimates follow a folded normal distribution and need to be modeled correctly to avoid bias. As such, for users interested in effect magnitude we have developed a `foldnorm` function which can apply results from normal meta-analytic models (that assume Gaussian error distributions) to generate corrected effect magnitude and credible intervals using an 'anlayse then transform' approach suggested by Morrissey (2016a).
 
-## **Installation**
-
-*metaAidR* is not currently on CRAN. For **testing purposes only** it can be downloaded through `devtools` as follows:
-
-```
-install.packages("devtools")
-library(devtools)
-install_github("daniel1noble/metaAidR")
-```
-`devtools` will install all the relevant documentation and data associated with the package. 
-
-**NOTE**: While functions exist, they are still not completely functional. Additionally, not all functions have been effectively tested and so should not be used or used with extreme caution!
-
-## **References**
+## **References** <a name="References"></a>
 
 Besson, A. A., Lagisz, M., Senior, A.M., Hector, K.L. and Nakagawa, S. (2016). Effect of maternal diet on offspring coping styles in rodents: a systematic review and meta-analysis. Biological Reviews, 91:1065-1080
 
