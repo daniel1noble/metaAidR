@@ -5,13 +5,14 @@
 #' @param v The vector of sampling variance for each effect size. 
 #' @param sims The number of simulations used for calculating confidence intervals on I^2 estimates for metafor objects.
 #' @param phylo A character string with the name of the phylogenetic random effect. Defaults to FALSE meaning that no phylogenetic heritability is calculated. 
+#' @param obs A character string with the name of the observation-level random effect in metafor rma.mv models (e.g. "obs", "effectid", "rowid" etc.). The I^2 value returned for this effect refers to the residual among-effect size heterogeneity.
 #' @param ME A character string with the name of the sampling error random effect. This is important if one wishes to enter the sampling variance matrix in as a sparse matrix (i.e. 'ginverse' argument) for MCMCglmm. Otherwise, assumed that the 'mev' argument is used. 
 #' @return A data.frame containing the relevant I^2 measures along with the 95 percent confidence / credible intervals.
 #' @author Daniel Noble - daniel.noble@unsw.edu.au
 #' @references Nakagawa, S. and Santos, E.S.A. (2012) Methodological issues and advances in biological meta-analysis. Evolutionary Ecology, 26:1253-1274.
 #' @export
 
-I2 <- function(model, v, ME = FALSE, sims = 1500, phylo = FALSE){
+I2 <- function(model, v, ME = FALSE, sims = 1500, phylo = FALSE, obs = FALSE){
 	
 	if(class(model) != "MCMCglmm" && class(model) != "rma.mv" && class(model) != "rma"){
 		stop("The model object is not of class 'MCMCglmm' or 'metafor'")
@@ -47,7 +48,7 @@ I2 <- function(model, v, ME = FALSE, sims = 1500, phylo = FALSE){
 		   CI <- coda::HPDinterval(coda::as.mcmc(tmpMatrix))
 		    colnames(CI) <- c("2.5% CI", "97.5% CI")
 
-		    I2_Table <- as.data.frame(cbind(I2_Est. = mode[-match("units", names(mode))], CI[-match("units", rownames(CI)),]))
+		    I2_Table <- as.data.frame(cbind(I2_Est. = mode, CI))
 		    class(I2_Table) <- c("metaAidR", "data.frame")
 
 	return(round_df(I2_Table, digits = 4))
@@ -60,8 +61,8 @@ I2 <- function(model, v, ME = FALSE, sims = 1500, phylo = FALSE){
   		colnames(sigma2) <- model$s.names
   		sigmaN <- model$s.nlevels
 
-  		if("obs" %in% colnames(sigma2) == FALSE){
-  			stop("The metafor object does not contain a residual variance estimate. Please include an observation-level random effect (~1|obs) when fitting model")
+  		if(obs == FALSE){
+  		  stop("Please add the name of the observation-level random effect, obs. If models do not include this, re-run models including (~1|obs) in the random effect list")
   		}
 
   		#For each variance estimate use Monte Carlo simulation of data
@@ -77,10 +78,10 @@ I2 <- function(model, v, ME = FALSE, sims = 1500, phylo = FALSE){
 		 I2_total   <- Vt / VT
 
 		  if(phylo == FALSE){
-		  	tmpMatrix <- cbind(I2_re[,-match("obs", colnames(I2_re))], total = I2_total)
+		    tmpMatrix <- cbind(I2_re, total = I2_total)
 		   }else{
 		  	I2_phylo <- Sims[, match(phylo, colnames(sigma2))] / Vt
-		  	 tmpMatrix <- cbind(I2_re[,-match("obs", colnames(I2_re))], phylo = I2_phylo, total = I2_total)
+		  	 tmpMatrix <- cbind(I2_re, phylo = I2_phylo, total = I2_total)
 		  }
 
 		CI <- lapply(tmpMatrix, function(x) stats::quantile(x, c(0.025, 0.975), na.rm = TRUE))
