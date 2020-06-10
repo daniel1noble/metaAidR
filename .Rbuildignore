@@ -1,5 +1,5 @@
 .Rproj.user
-^\.travis.\yml$
+.travis.yml
 cran-comments.md
 revdep/
 README.Rmd
