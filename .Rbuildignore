@@ -4,3 +4,5 @@ cran-comments.md
 revdep/
 README.Rmd
 test-I2.R
+^.*\.Rproj$
+^\.Rproj\.user$
