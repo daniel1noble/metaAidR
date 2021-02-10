@@ -57,8 +57,8 @@ test_that("Check that output is correct", {
 	lmER <- lme4::lmer(es ~1 + (1|spp) + (1|stdy), weights = V, data = data)
 
 	# Testing the I2 function
-	 MetaF <- I2(metaFor, v = data$V)
-	MetaF2 <- I2(metaFor2, v = data$V)
+	 MetaF <- I2(metaFor, v = data$V, obs = "obs")
+	MetaF2 <- I2(metaFor2, v = data$V, obs = "obs")
 
 	 MCMC <- I2(metaMCMC, v = data$V, phylo = FALSE)
 	MCMC2 <- I2(metaMCMC2, v = data$V, phylo = FALSE)
@@ -71,7 +71,7 @@ test_that("Check that output is correct", {
 	expect_equal(as.numeric(MetaF[rownames(MetaF) == "total",][1]) ,  
 					I2T, tolerance = 0.05, info = "faildMetatot")
 	
-	expect_equal(dim(MetaF2),  c(4,3), info = "dimMetaforFail")
+	expect_equal(dim(MetaF2),  c(5,3), info = "dimMetaforFail")
 	expect_error(I2(metaFor3, v = data$V), info = "failedMetafor_no_obs")
 	expect_error(I2(lmER, v = data$V), info = "failedWrongModel")
 
@@ -81,5 +81,6 @@ test_that("Check that output is correct", {
 				I2st, tolerance = 0.05, info = "faildMCstudy")
 	expect_equal(as.numeric(MCMC[rownames(MCMC) == "total",][1]) ,  
 				I2T, tolerance = 0.05, info = "faildMCTot")
-	expect_equal(dim(MCMC2),  c(4,3), info = "dimMCMCFail")
+	expect_equal(dim(MCMC2),  c(5,3), info = "dimMCMCFail")
 })
+
