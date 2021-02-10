@@ -4,7 +4,7 @@
 \alias{I2}
 \title{I^2 Function}
 \usage{
-I2(model, v, ME = FALSE, sims = 1500, phylo = FALSE)
+I2(model, v, ME = FALSE, sims = 1500, phylo = FALSE, obs = FALSE)
 }
 \arguments{
 \item{model}{The MCMCglmm or metafor model object. Note that if using a metafor model object an observation level random effect must be used to calculate the residual variance. This should be input as "~1|obs" in the random effect list.}
@@ -16,6 +16,8 @@ I2(model, v, ME = FALSE, sims = 1500, phylo = FALSE)
 \item{sims}{The number of simulations used for calculating confidence intervals on I^2 estimates for metafor objects.}
 
 \item{phylo}{A character string with the name of the phylogenetic random effect. Defaults to FALSE meaning that no phylogenetic heritability is calculated.}
+
+\item{obs}{A character string with the name of the observation-level random effect in metafor rma.mv models (e.g. "obs", "effectid", "rowid" etc.). The I^2 value returned for this effect refers to the residual among-effect size heterogeneity.}
 }
 \value{
 A data.frame containing the relevant I^2 measures along with the 95 percent confidence / credible intervals.
@@ -27,5 +29,5 @@ Function for calculating commonly reported  I^2 measures from MCMCglmm model obj
 Nakagawa, S. and Santos, E.S.A. (2012) Methodological issues and advances in biological meta-analysis. Evolutionary Ecology, 26:1253-1274.
 }
 \author{
-Daniel Noble - daniel.noble@unsw.edu.au
+Daniel Noble - daniel.noble@anu.edu.au
 }

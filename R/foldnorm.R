@@ -7,7 +7,7 @@
 #' @return Posterior mean or mode along with the 95 percent credible intervals (i.e. the highest posterior density interval - HPDinterval). Alternatively if type = "raw" it will return the mean and variance for the folded normal distribution.
 #' @references Morrisey, M.B. 2016. Meta-analysis of magnitudes, differences and variation in evolutionary parameters. Journal of Evolutionary Biology, 29:1882-1904
 #' @references Morrisey, M.B. 2016. Rejoinder: Further considerations for meta-analysis of transformed quantities such as absolute values. Journal of Evolutionary Biology, 29:1922-1931
-#' @author Daniel Noble - daniel.noble@unsw.edu.au
+#' @author Daniel Noble - daniel.noble@anu.edu.au
 #' @examples
 #' set.seed(60)
 #' x <- rnorm(1000, 1, 1)

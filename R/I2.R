@@ -8,7 +8,7 @@
 #' @param obs A character string with the name of the observation-level random effect in metafor rma.mv models (e.g. "obs", "effectid", "rowid" etc.). The I^2 value returned for this effect refers to the residual among-effect size heterogeneity.
 #' @param ME A character string with the name of the sampling error random effect. This is important if one wishes to enter the sampling variance matrix in as a sparse matrix (i.e. 'ginverse' argument) for MCMCglmm. Otherwise, assumed that the 'mev' argument is used. 
 #' @return A data.frame containing the relevant I^2 measures along with the 95 percent confidence / credible intervals.
-#' @author Daniel Noble - daniel.noble@unsw.edu.au
+#' @author Daniel Noble - daniel.noble@anu.edu.au
 #' @references Nakagawa, S. and Santos, E.S.A. (2012) Methodological issues and advances in biological meta-analysis. Evolutionary Ecology, 26:1253-1274.
 #' @export
 
@@ -104,12 +104,12 @@ I2 <- function(model, v, ME = FALSE, sims = 1500, phylo = FALSE, obs = FALSE){
 #' @param estimate The estimate (i.e. variance) from a metafor model
 #' @param sims The number of simulations 
 #' @param n The sample size used in estimating the variance 
-#' @author Daniel Noble - daniel.noble@unsw.edu.au
+#' @author Daniel Noble - daniel.noble@anu.edu.au
 #' @export
   simMonteCarlo <- function(estimate, n, sims){
-  		tmp <- data.frame(num = rep(1:sims, each = n), 
-  			y = stats::rnorm(n*sims, 0, sqrt(estimate)))
-  		Var <- tmp %>% dplyr::group_by(num) %>% dplyr::summarise(Mean_var = var(y))
+  		tmp <- data.frame(num = base::rep(1:sims, each = n), 
+  			y = stats::rnorm(n*sims, 0, base::sqrt(estimate)))
+  		Var <- tmp %>% dplyr::group_by(num) %>% dplyr::summarise(Mean_var = stats::var(y))
   		return(as.numeric(Var$Mean_var))
   	}
 

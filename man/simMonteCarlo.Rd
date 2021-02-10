@@ -17,5 +17,5 @@ simMonteCarlo(estimate, n, sims)
 Function for calculating I2 estimates using parametric simulations of model estimates taken from metafor. Note that the effectiveness of these simulations depends on the accuracy of model variance estimates.
 }
 \author{
-Daniel Noble - daniel.noble@unsw.edu.au
+Daniel Noble - daniel.noble@anu.edu.au
 }

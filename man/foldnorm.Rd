@@ -36,5 +36,5 @@ Morrisey, M.B. 2016. Meta-analysis of magnitudes, differences and variation in e
 Morrisey, M.B. 2016. Rejoinder: Further considerations for meta-analysis of transformed quantities such as absolute values. Journal of Evolutionary Biology, 29:1922-1931
 }
 \author{
-Daniel Noble - daniel.noble@unsw.edu.au
+Daniel Noble - daniel.noble@anu.edu.au
 }
