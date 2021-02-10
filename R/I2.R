@@ -55,7 +55,7 @@ I2 <- function(model, v, ME = FALSE, sims = 1500, phylo = FALSE, obs = FALSE){
   	}
 
   	if("rma.mv" %in% class(model) | "rma" %in% class(model)){
-  		#Monte Carlo Simulations
+  		# Monte Carlo Simulations
 		# From metafor extract the important statistics
   		sigma2 <- matrix(model$sigma2, nrow = 1, ncol = length(model$sigma2))
   		colnames(sigma2) <- model$s.names
@@ -74,11 +74,13 @@ I2 <- function(model, v, ME = FALSE, sims = 1500, phylo = FALSE, obs = FALSE){
 		Vt <- rowSums(Sims)  # remove Vw
 		
 		# For each variance component divide by the total variance. Note this needs to be fixed for phylo, but does deal with variable random effects.
-		 I2_re       <- Sims / VT
-		 I2_total   <- Vt / VT
+		 I2_re <- Sims / VT
+		 I2_total <- data.frame(Vt / VT)
 
 		  if(phylo == FALSE){
-		    tmpMatrix <- cbind(I2_re, total = I2_total)
+		  	tmpMatrix <- data.frame(I2_re[, -match("obs", colnames(I2_re))], total = I2_total)
+		  	names(tmpMatrix) = c(colnames(I2_re)[!colnames(I2_re) %in% 'obs'], 'total')
+
 		   }else{
 		  	I2_phylo <- Sims[, match(phylo, colnames(sigma2))] / Vt
 		  	 tmpMatrix <- cbind(I2_re, phylo = I2_phylo, total = I2_total)
